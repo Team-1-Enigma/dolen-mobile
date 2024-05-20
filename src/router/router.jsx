@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import Login from "../components/Auth/Login";
 import Register from "../components/Auth/Register";
+import Home from "../screens/Home/Home";
 // import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 
 // icons
@@ -59,10 +60,14 @@ const Router = () => {
                 screenOptions={{
                     headerShown: false,
                 }}
-                initialRouteName="Login"
+                initialRouteName="Home"
             >
+                {/* Auth */}
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Register" component={Register} />
+
+                {/* Screens */}
+                <Stack.Screen name="Home" component={Home} />
             </Stack.Navigator>
         </NavigationContainer>
     );
