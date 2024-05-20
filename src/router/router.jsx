@@ -9,7 +9,7 @@ const Stack = createNativeStackNavigator();
 
 
 const AppNavigator = () => {
-  const navigation = useNavigation();
+//   const navigation = useNavigation();
 
 //   useEffect(() => {
 //     const checkToken = async () => {
