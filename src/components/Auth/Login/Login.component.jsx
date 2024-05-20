@@ -1,34 +1,32 @@
-import { Text, XStack, YStack, Image, Label, Input } from "tamagui";
-import images from "../../../../assets/images";
-import { useForm, Controller } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import React,{ useState, useRef, useEffect } from "react";
-import { useDispatch } from 'react-redux';
-import { useNavigation } from "@react-navigation/native";
-import { TouchableOpacity } from "react-native";
+import { useState } from "react";
+import { Image, TouchableOpacity, View } from "react-native";
+import { Button, H2, Input, XStack, YStack, Text } from "tamagui";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+// alternativenya adalah formik
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+// alternativenya adalah zod
+import * as yup from "yup";
 
+import images from "../../../../assets/images";
+import { useNavigation } from "@react-navigation/native";
 
 const loginFormSchema = yup
-  .object({
-    email: yup
-    .string()
-      .required("Email is required"),
-    password: yup
-      .string()
-      .min(3, "Password must be at least 8 characters")
-      .required("Password must be filled"),
-  })
-  .required();
-  
-const Login = () =>{
+    .object({
+        email: yup
+            .string()
+            .email("Invalid Email")
+            .required("Email is required"),
+        password: yup
+            .string()
+            .min(8, "Password must be at least 8 characters")
+            .required("Password must be filled"),
+    })
+    .required();
+
+const Login = () => {
     const [isShowPassword, setIsShowPassword] = useState(false);
-    const onPasswordToggle = () => {
-        setIsShowPassword((previousIsShowPassword) => {
-          return !previousIsShowPassword;
-        });
-    };
+    const navigation = useNavigation();
     const {
         control,
         handleSubmit,
@@ -37,144 +35,187 @@ const Login = () =>{
         formState: { errors },
     } = useForm({
         defaultValues: {
-        email: "",
-        password: "",
+            email: "",
+            password: "",
         },
         resolver: yupResolver(loginFormSchema),
     });
 
-    return(
-        <YStack 
-            height={"100%"} 
-            width={"100%"} 
-            style={
-                {
-                    backgroundColor:"white", 
-                    justifyContent:"center",
-                    alignItems:"center"
-                }
-            }
+    const onPasswordToggle = () => {
+        // setIsShowPassword(!setIsShowPassword);
+        setIsShowPassword((previousIsShowPassword) => {
+            return !previousIsShowPassword;
+        });
+    };
+
+    const onSubmit = () => {
+        console.log("Debug Form", {
+            "getValues()": getValues(),
+            "getFieldState('email')": getFieldState("email"),
+        });
+        const { email, password } = getValues();
+        // @ts-ignore
+        navigation.navigate("Product", { email, password, isFromLogin: true });
+    };
+
+    const toRegistration = () => {
+        navigation.navigate("Register")
+    }
+
+    return (
+        <YStack
+            flex={1}
+            justifyContent="center"
+            alignItems="center"
+            padding={20}
+            gap={15}
         >
             <XStack
-                width={"100%"}
-                style={{
-                    justifyContent:"center",
-                    alignItems:"center"
-                }}
+                width="50%"
             >
-                <Image style={{aspectRatio:.8, width:"15%"}} source={images.icon}/>
+                <Image
+                    style={{ aspectRatio: 1, width: "100%" }}
+                    source={images.login}
+                />
             </XStack>
-            <XStack
-                width={"100%"}
-                style={{
-                    justifyContent:"center",
-                    alignItems:"center",
-                    marginTop:"20%",
-                }}
-            >
-                <Image style={{aspectRatio:1, width:"60%"}} source={images.login}/>
-            </XStack>
-            <YStack width={"100%"} style={{justifyContent:"center",  alignItems:"center"}} flex="2">
-                <YStack width={"80%"}>
-                    <Label 
-                        htmlFor="email" 
-                        style={{fontSize:20, fontStyle:"italic"}}
-                    >
-                        Email
-                    </Label>
+
+            <H2 textAlign="center">Welcome to Dolen</H2>
+            <View style={{ alignItems: "center" }}>
+                <Text style={{ color: "grey" }}>
+                    Continue with login to enhance
+                </Text>
+                <Text style={{ color: "grey" }}>
+                    your traveling experience
+                </Text>
+            </View>
+
+            <YStack width={"100%"}>
+                <YStack width={"100%"} marginTop={10}>
                     <Controller
                         control={control}
                         rules={{
-                        required: true,
+                            required: true,
                         }}
                         render={({ field: { onChange, onBlur, value } }) => (
                             <Input
                                 size={16}
-                                placeholder="Enter Your Email Address"
-                                placeholderTextColor="black"
+                                placeholder={`Email Address`}
                                 onBlur={onBlur}
                                 onChangeText={onChange}
                                 value={value}
-                                autoCapitalize="none"
-                                borderRadius={20}
-                                borderColor={"black"}
                                 style={{
-                                    borderRadius: 20,
-                                    backgroundColor: "white",
-                                    borderColor: "black",
-                                    borderWidth: 1,
-                                    padding: 10
-                                }}
-                                focusStyle={{
-                                    borderColor: "black"
+                                    position: "relative",
+                                    paddingLeft: 35,
                                 }}
                             />
-                        
                         )}
                         name="email"
                     />
+                    <TouchableOpacity>
+                        <MaterialCommunityIcons
+                            style={{
+                                position: "absolute",
+                                marginTop: -40,
+                                padding: 10,
+                                color: "grey",
+                            }}
+                            size={17}
+                            name="email"
+                        />
+                    </TouchableOpacity>
+                    {errors.email && (
+                        <Text marginTop={1} color={"red"}>
+                            {errors.email.message}
+                        </Text>
+                    )}
                 </YStack>
-                <YStack width={"80%"}>
-                    <Label 
-                        htmlFor="password" 
-                        style={{fontSize:20, fontStyle:"italic"}}
+
+                <YStack width={"100%"} marginTop={15}>
+                    <XStack
+                        alignItems="center"
                     >
-                        Password
-                    </Label>
-                    <XStack>
                         <Controller
-                        
                             control={control}
                             rules={{
-                            required: true,
+                                required: true,
                             }}
-                            render={({ field: { onChange, onBlur, value } }) => (
+                            render={({
+                                field,
+                                field: { onChange, onBlur, value },
+                            }) => (
                                 <Input
-                                    width={"100%"}
                                     secureTextEntry={!isShowPassword}
                                     size={16}
-                                    placeholder="Password"
-                                    placeholderTextColor="black"
+                                    placeholder={`Password`}
+                                    width={"100%"}
                                     onBlur={onBlur}
-                                    onChangeText={onChange}
-                                    value={value}
-                                    autoCapitalize="none"
-                                    borderRadius={20}
-                                    borderColor={"black"}
-                                    style={{
-                                        borderRadius: 20,
-                                        backgroundColor: "white",
-                                        borderColor: "black",
-                                        borderWidth: 1,
-                                        padding: 10
+                                    onChangeText={(event) => {
+                                        console.log("event", event);
+                                        onChange(event);
                                     }}
-                                    focusStyle={{
-                                        borderColor: "black"
+                                    value={value}
+                                    style={{
+                                        position: "relative",
+                                        paddingLeft: 35,
                                     }}
                                 />
-                                
                             )}
                             name="password"
                         />
+                        <TouchableOpacity>
+                            <MaterialCommunityIcons
+                                style={{
+                                    position: "absolute",
+                                    marginTop: -20,
+                                    padding: 10,
+                                    color: "grey",
+                                    left: -352,
+                                }}
+                                size={17}
+                                name="lock"
+                            />
+                        </TouchableOpacity>
                         <TouchableOpacity
                             style={{
                                 position: "absolute",
                                 right: 16,
-                                // backgroundColor: "yellow"
-                                top:12
+                                // backgroundColor: "yellow",
                             }}
                             onPress={onPasswordToggle}
                         >
-                        <MaterialCommunityIcons
-                            size={20}
-                            name={isShowPassword ? "eye" : "eye-off"}
-                        />
-                    </TouchableOpacity>
+                            <MaterialCommunityIcons
+                                name={isShowPassword ? "eye" : "eye-off"}
+                            />
+                        </TouchableOpacity>
                     </XStack>
+                    {errors.password && (
+                        <Text marginTop={1} color={"red"}>
+                            {errors.password.message}
+                        </Text>
+                    )}
                 </YStack>
             </YStack>
+
+            <Button
+                marginTop={10}
+                size={"$5"}
+                width={"100%"}
+                onPress={handleSubmit(onSubmit)}
+                backgroundColor={"#4169E1"}
+                color={"white"}
+                fontWeight={800}
+                borderRadius={50}
+            >
+                Log In
+            </Button>
+            <View style={{ display: 'flex', flexDirection: 'row' }}>
+                <Text>Don't Have an account yet?</Text>
+                <TouchableOpacity>
+                    <Text onPress={toRegistration} style={{ color: '#4169E1', fontWeight: '800', paddingLeft: 2 }}>Buat Akun</Text>
+                </TouchableOpacity>
+            </View>
         </YStack>
-    )
-}
+    );
+};
 
 export default Login;
