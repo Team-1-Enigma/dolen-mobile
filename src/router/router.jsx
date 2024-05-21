@@ -4,53 +4,54 @@ import { NavigationContainer } from "@react-navigation/native";
 import Login from "../components/Auth/Login";
 import Register from "../components/Auth/Register";
 import Home from "../screens/Home/Home";
-// import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
+import Verify from "../components/Auth/Verify";
+import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 
 // icons
-// import Octicons from "@expo/vector-icons/Octicons";
+import Octicons from "@expo/vector-icons/Octicons";
 
 const Stack = createNativeStackNavigator(); 
-// const Tabs = AnimatedTabBarNavigator();
+const Tabs = AnimatedTabBarNavigator();
 
-// const BottomTab = () => (
-//     <Tabs.Navigator
-//         tabBarOptions={{
-//             activeBackgroundColor: "#007DFF",
-//             inactiveTintColor: "#007DFF",
-//             activeTintColor: "white",
-//         }}
-//         appearance={{
-//             floating: true,
-//         }}
-//     >
-//         <Tabs.Screen
-//             name="Home"
-//             component={Home}
-//             options={{
-//                 tabBarIcon: ({ focus, color, size }) => (
-//                     <Octicons
-//                         name="home"
-//                         size={24}
-//                         color={!focus ? color : "#007DFF"}
-//                     />
-//                 ),
-//             }}
-//         />
-//         <Tabs.Screen
-//             name="Product"
-//             component={Product}
-//             options={{
-//                 tabBarIcon: ({ focus, color, size }) => (
-//                     <Octicons
-//                         name="list-unordered"
-//                         size={24}
-//                         color={!focus ? color : "#007DFF"}
-//                     />
-//                 ),
-//             }}
-//         />
-//     </Tabs.Navigator>
-// );
+const BottomTab = () => (
+    <Tabs.Navigator
+        tabBarOptions={{
+            activeBackgroundColor: "#07C9F0",
+            inactiveTintColor: "#07C9F0",
+            activeTintColor: "white",
+        }}
+        appearance={{
+            floating: false,
+        }}
+    >
+        <Tabs.Screen
+            name="Home"
+            component={Home}
+            options={{
+                tabBarIcon: ({ focus, color, size }) => (
+                    <Octicons
+                        name="home"
+                        size={24}
+                        color={!focus ? color : "#07C9F0"}
+                    />
+                ),
+            }}
+        />
+                <Tabs.Screen
+            name="Login"
+            component={Login}
+            options={{
+                tabBarIcon: ({ focus, color, size }) => (
+                    <Octicons
+                        name="mail"
+                        size={24}
+                        color={!focus ? color : "#07C9F0"}
+                    />
+                ),
+            }}
+        />
+    </Tabs.Navigator>
+);
 
 
 const Router = () => {
@@ -60,11 +61,13 @@ const Router = () => {
                 screenOptions={{
                     headerShown: false,
                 }}
-                initialRouteName="Home"
+                initialRouteName="App"
             >
+                <Stack.Screen name="App" component={BottomTab} />
                 {/* Auth */}
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Register" component={Register} />
+                <Stack.Screen name="Verify" component={Verify} />
 
                 {/* Screens */}
                 <Stack.Screen name="Home" component={Home} />

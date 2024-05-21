@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Image, TouchableOpacity, View } from "react-native";
+import { Image, ScrollView, TouchableOpacity, View } from "react-native";
 import { Button, H2, Input, XStack, YStack, Text } from "tamagui";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 // alternativenya adalah formik
@@ -59,100 +59,54 @@ const Login = () => {
     };
 
     const toRegistration = () => {
-        navigation.navigate("Register")
-    }
+        navigation.navigate("Register");
+    };
 
     return (
-        <YStack
-            flex={1}
-            justifyContent="center"
+        <ScrollView
+            marginTop={50}
             alignItems="center"
+            justifyContent={"center"}
             padding={20}
-            gap={15}
         >
-            <XStack
-                width="50%"
+            <YStack
+                flex={1}
+                justifyContent="center"
+                alignItems="center"
+                gap={15}
             >
-                <Image
-                    style={{ aspectRatio: 1, width: "100%" }}
-                    source={images.login}
-                />
-            </XStack>
-
-            <H2 textAlign="center">Welcome to Dolen</H2>
-            <View style={{ alignItems: "center" }}>
-                <Text style={{ color: "grey" }}>
-                    Continue with login to enhance
-                </Text>
-                <Text style={{ color: "grey" }}>
-                    your traveling experience
-                </Text>
-            </View>
-
-            <YStack width={"100%"}>
-                <YStack width={"100%"} marginTop={10}>
-                    <Controller
-                        control={control}
-                        rules={{
-                            required: true,
-                        }}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                            <Input
-                                size={16}
-                                placeholder={`Email Address`}
-                                onBlur={onBlur}
-                                onChangeText={onChange}
-                                value={value}
-                                style={{
-                                    position: "relative",
-                                    paddingLeft: 35,
-                                }}
-                            />
-                        )}
-                        name="email"
+                <XStack width="50%">
+                    <Image
+                        style={{ aspectRatio: 1, width: "100%" }}
+                        source={images.login}
                     />
-                    <TouchableOpacity>
-                        <MaterialCommunityIcons
-                            style={{
-                                position: "absolute",
-                                marginTop: -40,
-                                padding: 10,
-                                color: "grey",
-                            }}
-                            size={17}
-                            name="email"
-                        />
-                    </TouchableOpacity>
-                    {errors.email && (
-                        <Text marginTop={1} color={"red"}>
-                            {errors.email.message}
-                        </Text>
-                    )}
-                </YStack>
+                </XStack>
 
-                <YStack width={"100%"} marginTop={15}>
-                    <XStack
-                        alignItems="center"
-                    >
+                <H2 textAlign="center">Welcome to Dolen</H2>
+                <View style={{ alignItems: "center" }}>
+                    <Text style={{ color: "grey" }}>
+                        Continue with login to enhance
+                    </Text>
+                    <Text style={{ color: "grey" }}>
+                        your traveling experience
+                    </Text>
+                </View>
+
+                <YStack width={"100%"}>
+                    <YStack width={"100%"} marginTop={10}>
                         <Controller
                             control={control}
                             rules={{
                                 required: true,
                             }}
                             render={({
-                                field,
                                 field: { onChange, onBlur, value },
                             }) => (
                                 <Input
-                                    secureTextEntry={!isShowPassword}
                                     size={16}
-                                    placeholder={`Password`}
-                                    width={"100%"}
+                                    placeholder={`Email Address`}
                                     onBlur={onBlur}
-                                    onChangeText={(event) => {
-                                        console.log("event", event);
-                                        onChange(event);
-                                    }}
+                                    onChangeText={onChange}
                                     value={value}
                                     style={{
                                         position: "relative",
@@ -160,61 +114,120 @@ const Login = () => {
                                     }}
                                 />
                             )}
-                            name="password"
+                            name="email"
                         />
                         <TouchableOpacity>
                             <MaterialCommunityIcons
                                 style={{
                                     position: "absolute",
-                                    marginTop: -20,
+                                    marginTop: -40,
                                     padding: 10,
                                     color: "grey",
-                                    left: -352,
                                 }}
                                 size={17}
-                                name="lock"
+                                name="email"
                             />
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            style={{
-                                position: "absolute",
-                                right: 16,
-                                // backgroundColor: "yellow",
-                            }}
-                            onPress={onPasswordToggle}
-                        >
-                            <MaterialCommunityIcons
-                                name={isShowPassword ? "eye" : "eye-off"}
-                            />
-                        </TouchableOpacity>
-                    </XStack>
-                    {errors.password && (
-                        <Text marginTop={1} color={"red"}>
-                            {errors.password.message}
-                        </Text>
-                    )}
-                </YStack>
-            </YStack>
+                        {errors.email && (
+                            <Text marginTop={1} color={"red"}>
+                                {errors.email.message}
+                            </Text>
+                        )}
+                    </YStack>
 
-            <Button
-                marginTop={10}
-                size={"$5"}
-                width={"100%"}
-                onPress={handleSubmit(onSubmit)}
-                backgroundColor={"#4169E1"}
-                color={"white"}
-                fontWeight={800}
-                borderRadius={50}
-            >
-                Log In
-            </Button>
-            <View style={{ display: 'flex', flexDirection: 'row' }}>
-                <Text>Don't Have an account yet?</Text>
-                <TouchableOpacity>
-                    <Text onPress={toRegistration} style={{ color: '#4169E1', fontWeight: '800', paddingLeft: 2 }}>Buat Akun</Text>
-                </TouchableOpacity>
-            </View>
-        </YStack>
+                    <YStack width={"100%"} marginTop={15}>
+                        <XStack alignItems="center">
+                            <Controller
+                                control={control}
+                                rules={{
+                                    required: true,
+                                }}
+                                render={({
+                                    field,
+                                    field: { onChange, onBlur, value },
+                                }) => (
+                                    <Input
+                                        secureTextEntry={!isShowPassword}
+                                        size={16}
+                                        placeholder={`Password`}
+                                        width={"100%"}
+                                        onBlur={onBlur}
+                                        onChangeText={(event) => {
+                                            console.log("event", event);
+                                            onChange(event);
+                                        }}
+                                        value={value}
+                                        style={{
+                                            position: "relative",
+                                            paddingLeft: 35,
+                                        }}
+                                    />
+                                )}
+                                name="password"
+                            />
+                            <TouchableOpacity>
+                                <MaterialCommunityIcons
+                                    style={{
+                                        position: "absolute",
+                                        marginTop: -20,
+                                        padding: 10,
+                                        color: "grey",
+                                        left: -352,
+                                    }}
+                                    size={17}
+                                    name="lock"
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={{
+                                    position: "absolute",
+                                    right: 16,
+                                    // backgroundColor: "yellow",
+                                }}
+                                onPress={onPasswordToggle}
+                            >
+                                <MaterialCommunityIcons
+                                    name={isShowPassword ? "eye" : "eye-off"}
+                                />
+                            </TouchableOpacity>
+                        </XStack>
+                        {errors.password && (
+                            <Text marginTop={1} color={"red"}>
+                                {errors.password.message}
+                            </Text>
+                        )}
+                    </YStack>
+                </YStack>
+
+                <Button
+                    marginTop={10}
+                    size={"$5"}
+                    width={"100%"}
+                    onPress={handleSubmit(onSubmit)}
+                    backgroundColor={"#07C9F0"}
+                    color={"white"}
+                    fontWeight={800}
+                    borderRadius={50}
+                >
+                    Log In
+                </Button>
+                <View style={{ display: "flex", flexDirection: "row" }}>
+                    <Text>Don't Have an account yet?</Text>
+                    <TouchableOpacity>
+                        <Text
+                            onPress={toRegistration}
+                            style={{
+                                color: "#07C9F0",
+                                fontWeight: "800",
+                                paddingLeft: 2,
+                            }}
+                        >
+                            Buat Akun
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            </YStack>
+        </ScrollView>
     );
 };
 

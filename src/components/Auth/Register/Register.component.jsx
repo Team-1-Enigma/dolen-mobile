@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Image, TouchableOpacity, View } from "react-native";
+import { Image, ScrollView, TouchableOpacity, View } from "react-native";
 import { Button, H2, Input, XStack, YStack, Text } from "tamagui";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 // alternativenya adalah formik
@@ -13,12 +13,8 @@ import { useNavigation } from "@react-navigation/native";
 
 const RegisterFormSchema = yup
     .object({
-        fullName: yup
-            .string()
-            .required("Fullname is Required"),
-        phoneNumber: yup
-            .number()
-            .required("Phone number is Required"),
+        fullName: yup.string().required("Fullname is Required"),
+        phoneNumber: yup.number().required("Phone number is Required"),
         email: yup
             .string()
             .email("Invalid Email")
@@ -45,8 +41,11 @@ const Register = () => {
         formState: { errors },
     } = useForm({
         defaultValues: {
+            fullname: "",
+            phoneNumber: "",
             email: "",
             password: "",
+            confirmPassword: "",
         },
         resolver: yupResolver(RegisterFormSchema),
     });
@@ -63,301 +62,313 @@ const Register = () => {
             "getValues()": getValues(),
             "getFieldState('email')": getFieldState("email"),
         });
-        const { email, password } = getValues();
+        const { fullname, phoneNumber, email, password, confirmPassword } = getValues();
         // @ts-ignore
-        navigation.navigate("Login", { email, password, isFromLogin: true });
+        navigation.navigate("Verify", { fullname, phoneNumber, email, password, confirmPassword, isFromLogin: true });
     };
 
     return (
-        <YStack
-            flex={1}
-            justifyContent="center"
+        <ScrollView
+            marginTop={50}
             alignItems="center"
             padding={20}
-            gap={15}
         >
-            <XStack
-                width="50%"
+            <YStack
+                flex={1}
+                justifyContent="center"
+                alignItems="center"
+                // padding={20}
+                gap={15}
             >
-                <Image
-                    style={{ aspectRatio: 1, width: "100%" }}
-                    source={images.register}
-                />
-            </XStack>
-
-            {/** Title (2nd Item) */}
-            <H2 textAlign="center">Dolen Account Registration</H2>
-            <Text style={{ color: "grey" }}>Enter details to create your Travel Pulse account</Text>
-
-            <YStack width={"100%"}>
-                <YStack width={"100%"} marginTop={10}>
-                    <Controller
-                        control={control}
-                        rules={{
-                            required: true,
-                        }}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                            <Input
-                                size={16}
-                                placeholder={`Fullname`}
-                                onBlur={onBlur}
-                                onChangeText={onChange}
-                                value={value}
-                                style={{
-                                    position: "relative",
-                                    paddingLeft: 35,
-                                }}
-                            />
-                        )}
-                        name="Fullname"
+                <XStack width="50%">
+                    <Image
+                        style={{ aspectRatio: 1, width: "100%" }}
+                        source={images.register}
                     />
-                    <TouchableOpacity>
-                        <MaterialCommunityIcons
-                            style={{
-                                position: "absolute",
-                                marginTop: -40,
-                                padding: 10,
-                                color: "grey",
+                </XStack>
+
+                {/** Title (2nd Item) */}
+                <H2 textAlign="center">Dolen Account Registration</H2>
+                <Text style={{ color: "grey" }}>
+                    Enter details to create your Travel Pulse account
+                </Text>
+
+                <YStack width={"100%"}>
+                    <YStack width={"100%"} marginTop={10}>
+                        <Controller
+                            control={control}
+                            rules={{
+                                required: true,
                             }}
-                            size={17}
-                            name="account"
+                            render={({
+                                field: { onChange, onBlur, value },
+                            }) => (
+                                <Input
+                                    size={16}
+                                    placeholder={`Fullname`}
+                                    onBlur={onBlur}
+                                    onChangeText={onChange}
+                                    value={value}
+                                    style={{
+                                        position: "relative",
+                                        paddingLeft: 35,
+                                    }}
+                                />
+                            )}
+                            name="Fullname"
                         />
-                    </TouchableOpacity>
-                    {errors.fullName && (
-                        <Text marginTop={1} color={"red"}>
-                            {errors.fullName.message}
-                        </Text>
-                    )}
-                </YStack>
-
-                <YStack width={"100%"} marginTop={10}>
-                    <Controller
-                        control={control}
-                        rules={{
-                            required: true,
-                        }}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                            <Input
-                                size={16}
-                                placeholder={`Phone number`}
-                                onBlur={onBlur}
-                                onChangeText={(event) => onChange(formatNpwp(event))}
-                                value={value}
+                        <TouchableOpacity>
+                            <MaterialCommunityIcons
                                 style={{
-                                    position: "relative",
-                                    paddingLeft: 35,
+                                    position: "absolute",
+                                    marginTop: -40,
+                                    padding: 10,
+                                    color: "grey",
                                 }}
-                                keyboardType="numeric"
-                                maxLength={16}
+                                size={17}
+                                name="account"
                             />
+                        </TouchableOpacity>
+                        {errors.fullName && (
+                            <Text marginTop={1} color={"red"}>
+                                {errors.fullName.message}
+                            </Text>
                         )}
-                        name="phoneNumber"
-                    />
-                    <TouchableOpacity>
-                        <MaterialCommunityIcons
-                            style={{
-                                position: "absolute",
-                                marginTop: -40,
-                                padding: 10,
-                                color: "grey",
+                    </YStack>
+
+                    <YStack width={"100%"} marginTop={10}>
+                        <Controller
+                            control={control}
+                            rules={{
+                                required: true,
                             }}
-                            size={17}
-                            name="phone"
+                            render={({
+                                field: { onChange, onBlur, value },
+                            }) => (
+                                <Input
+                                    size={16}
+                                    placeholder={`Phone number`}
+                                    onBlur={onBlur}
+                                    value={value}
+                                    style={{
+                                        position: "relative",
+                                        paddingLeft: 35,
+                                    }}
+                                    keyboardType="numeric"
+                                    maxLength={16}
+                                />
+                            )}
+                            name="phoneNumber"
                         />
-                    </TouchableOpacity>
-                    {errors.phoneNumber && (
-                        <Text marginTop={1} color={"red"}>
-                            {errors.phoneNumber.message}
-                        </Text>
-                    )}
-                </YStack>
-
-                <YStack width={"100%"} marginTop={10}>
-                    <Controller
-                        control={control}
-                        rules={{
-                            required: true,
-                        }}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                            <Input
-                                size={16}
-                                placeholder={`Email`}
-                                onBlur={onBlur}
-                                onChangeText={onChange}
-                                value={value}
+                        <TouchableOpacity>
+                            <MaterialCommunityIcons
                                 style={{
-                                    position: "relative",
-                                    paddingLeft: 35,
+                                    position: "absolute",
+                                    marginTop: -40,
+                                    padding: 10,
+                                    color: "grey",
                                 }}
+                                size={17}
+                                name="phone"
                             />
+                        </TouchableOpacity>
+                        {errors.phoneNumber && (
+                            <Text marginTop={1} color={"red"}>
+                                {errors.phoneNumber.message}
+                            </Text>
                         )}
-                        name="email"
-                    />
-                    <TouchableOpacity>
-                        <MaterialCommunityIcons
-                            style={{
-                                position: "absolute",
-                                marginTop: -40,
-                                padding: 10,
-                                color: "grey",
+                    </YStack>
+
+                    <YStack width={"100%"} marginTop={10}>
+                        <Controller
+                            control={control}
+                            rules={{
+                                required: true,
                             }}
-                            size={17}
+                            render={({
+                                field: { onChange, onBlur, value },
+                            }) => (
+                                <Input
+                                    size={16}
+                                    placeholder={`Email`}
+                                    onBlur={onBlur}
+                                    onChangeText={onChange}
+                                    value={value}
+                                    style={{
+                                        position: "relative",
+                                        paddingLeft: 35,
+                                    }}
+                                />
+                            )}
                             name="email"
                         />
-                    </TouchableOpacity>
-                    {errors.email && (
-                        <Text marginTop={1} color={"red"}>
-                            {errors.email.message}
-                        </Text>
-                    )}
-                </YStack>
-
-                <YStack width={"100%"} marginTop={15}>
-                    <XStack
-                        alignItems="center"
-                        // backgroundColor={"green"}
-                    >
-                        <Controller
-                            control={control}
-                            rules={{
-                                required: true,
-                            }}
-                            render={({
-                                field,
-                                field: { onChange, onBlur, value },
-                            }) => (
-                                <Input
-                                    secureTextEntry={!isShowPassword}
-                                    size={16}
-                                    placeholder={`Password`}
-                                    width={"100%"}
-                                    onBlur={onBlur}
-                                    onChangeText={(event) => {
-                                        console.log("event", event);
-                                        onChange(event);
-                                    }}
-                                    value={value}
-                                    style={{
-                                        position: "relative",
-                                        paddingLeft: 35,
-                                    }}
-                                />
-                            )}
-                            name="password"
-                        />
                         <TouchableOpacity>
                             <MaterialCommunityIcons
                                 style={{
                                     position: "absolute",
-                                    marginTop: -20,
+                                    marginTop: -40,
                                     padding: 10,
                                     color: "grey",
-                                    left: -352,
                                 }}
                                 size={17}
-                                name="lock"
+                                name="email"
                             />
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            style={{
-                                position: "absolute",
-                                right: 16,
-                                // backgroundColor: "yellow",
-                            }}
-                            onPress={onPasswordToggle}
-                        >
-                            <MaterialCommunityIcons
-                                name={isShowPassword ? "eye" : "eye-off"}
-                            />
-                        </TouchableOpacity>
-                    </XStack>
-                    {errors.password && (
-                        <Text marginTop={1} color={"red"}>
-                            {errors.password.message}
-                        </Text>
-                    )}
-                </YStack>
+                        {errors.email && (
+                            <Text marginTop={1} color={"red"}>
+                                {errors.email.message}
+                            </Text>
+                        )}
+                    </YStack>
 
-                <YStack width={"100%"} marginTop={15}>
-                    <XStack
-                        alignItems="center"
-                        // backgroundColor={"green"}
-                    >
-                        <Controller
-                            control={control}
-                            rules={{
-                                required: true,
-                            }}
-                            render={({
-                                field,
-                                field: { onChange, onBlur, value },
-                            }) => (
-                                <Input
-                                    secureTextEntry={!isShowPassword}
-                                    size={16}
-                                    placeholder={`Confirm Password`}
-                                    width={"100%"}
-                                    onBlur={onBlur}
-                                    onChangeText={(event) => {
-                                        console.log("event", event);
-                                        onChange(event);
-                                    }}
-                                    value={value}
+                    <YStack width={"100%"} marginTop={15}>
+                        <XStack
+                            alignItems="center"
+                            // backgroundColor={"green"}
+                        >
+                            <Controller
+                                control={control}
+                                rules={{
+                                    required: true,
+                                }}
+                                render={({
+                                    field,
+                                    field: { onChange, onBlur, value },
+                                }) => (
+                                    <Input
+                                        secureTextEntry={!isShowPassword}
+                                        size={16}
+                                        placeholder={`Password`}
+                                        width={"100%"}
+                                        onBlur={onBlur}
+                                        onChangeText={(event) => {
+                                            console.log("event", event);
+                                            onChange(event);
+                                        }}
+                                        value={value}
+                                        style={{
+                                            position: "relative",
+                                            paddingLeft: 35,
+                                        }}
+                                    />
+                                )}
+                                name="password"
+                            />
+                            <TouchableOpacity>
+                                <MaterialCommunityIcons
                                     style={{
-                                        position: "relative",
-                                        paddingLeft: 35,
+                                        position: "absolute",
+                                        marginTop: -20,
+                                        padding: 10,
+                                        color: "grey",
+                                        left: -352,
                                     }}
+                                    size={17}
+                                    name="lock"
                                 />
-                            )}
-                            name="confirmPassword"
-                        />
-                        <TouchableOpacity>
-                            <MaterialCommunityIcons
+                            </TouchableOpacity>
+                            <TouchableOpacity
                                 style={{
                                     position: "absolute",
-                                    marginTop: -20,
-                                    padding: 10,
-                                    color: "grey",
-                                    left: -352,
+                                    right: 16,
+                                    // backgroundColor: "yellow",
                                 }}
-                                size={17}
-                                name="lock"
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={{
-                                position: "absolute",
-                                right: 16,
-                                // backgroundColor: "yellow",
-                            }}
-                            onPress={onPasswordToggle}
+                                onPress={onPasswordToggle}
+                            >
+                                <MaterialCommunityIcons
+                                    name={isShowPassword ? "eye" : "eye-off"}
+                                />
+                            </TouchableOpacity>
+                        </XStack>
+                        {errors.password && (
+                            <Text marginTop={1} color={"red"}>
+                                {errors.password.message}
+                            </Text>
+                        )}
+                    </YStack>
+
+                    <YStack width={"100%"} marginTop={15}>
+                        <XStack
+                            alignItems="center"
+                            // backgroundColor={"green"}
                         >
-                            <MaterialCommunityIcons
-                                name={isShowPassword ? "eye" : "eye-off"}
+                            <Controller
+                                control={control}
+                                rules={{
+                                    required: true,
+                                }}
+                                render={({
+                                    field,
+                                    field: { onChange, onBlur, value },
+                                }) => (
+                                    <Input
+                                        secureTextEntry={!isShowPassword}
+                                        size={16}
+                                        placeholder={`Confirm Password`}
+                                        width={"100%"}
+                                        onBlur={onBlur}
+                                        onChangeText={(event) => {
+                                            console.log("event", event);
+                                            onChange(event);
+                                        }}
+                                        value={value}
+                                        style={{
+                                            position: "relative",
+                                            paddingLeft: 35,
+                                        }}
+                                    />
+                                )}
+                                name="confirmPassword"
                             />
-                        </TouchableOpacity>
-                    </XStack>
-                    {errors.confirmPassword && (
-                        <Text marginTop={1} color={"red"}>
-                            {errors.confirmPassword.message}
-                        </Text>
-                    )}
+                            <TouchableOpacity>
+                                <MaterialCommunityIcons
+                                    style={{
+                                        position: "absolute",
+                                        marginTop: -20,
+                                        padding: 10,
+                                        color: "grey",
+                                        left: -352,
+                                    }}
+                                    size={17}
+                                    name="lock"
+                                />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={{
+                                    position: "absolute",
+                                    right: 16,
+                                    // backgroundColor: "yellow",
+                                }}
+                                onPress={onPasswordToggle}
+                            >
+                                <MaterialCommunityIcons
+                                    name={isShowPassword ? "eye" : "eye-off"}
+                                />
+                            </TouchableOpacity>
+                        </XStack>
+                        {errors.confirmPassword && (
+                            <Text marginTop={1} color={"red"}>
+                                {errors.confirmPassword.message}
+                            </Text>
+                        )}
+                    </YStack>
                 </YStack>
+
+                <Button
+                    marginTop={10}
+                    size={"$5"}
+                    width={"100%"}
+                    onPress={handleSubmit(onSubmit)}
+                    backgroundColor={"#07C9F0"}
+                    color={"white"}
+                >
+                    Register
+                </Button>
+                <Text color={"grey"} marginTop={10}>
+                    Enjoy your day!
+                </Text>
             </YStack>
-
-            {/** Login Button (4th Item) */}
-            <Button
-                marginTop={10}
-                size={"$5"}
-                width={"100%"}
-                onPress={handleSubmit(onSubmit)}
-                backgroundColor={"#2c5fd4"}
-                color={"white"}
-            >
-                Register
-            </Button>
-            <Text color={"grey"} marginTop={10}>Enjoy your day!</Text>
-        </YStack>
+        </ScrollView>
     );
 };
 
