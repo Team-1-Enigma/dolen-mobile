@@ -24,20 +24,9 @@ const Home = () => {
                     </XStack>
 
                     <View style={{ position: 'absolute', zIndex: 5, width: 250, justifyContent: 'space-between', display: 'flex', flexDirection: 'row', gap: 15 }}>
-                        <H3 style={{ color: 'white', marginTop: 700, marginLeft: -55 }}>
+                        <H3 style={{ color: 'white', marginTop: 650, marginLeft: -55, lineHeight: 40 }}>
                             Why you should reconsider The Bromo Mountain?
                         </H3>
-                        <TouchableOpacity>
-                            <MaterialCommunityIcons
-                                style={{
-                                    marginTop: 700,
-                                    padding: 10,
-                                    color: "white",
-                                }}
-                                size={40}
-                                name="arrow-right"
-                            />
-                        </TouchableOpacity>
                     </View>
                 </YStack>
             </ScrollView>
