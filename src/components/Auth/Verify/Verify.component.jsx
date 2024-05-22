@@ -2,8 +2,15 @@ import React from "react";
 import { Image, Text, View } from "react-native";
 import { H1, Button, XStack, YStack, H2 } from "tamagui";
 import images from "../../../../assets/images";
+import { useNavigation } from "@react-navigation/native";
 
 const Verify = () => {
+    const navigation = useNavigation()
+
+    const toLogin = () => {
+        navigation.navigate("Login")
+    }
+
     return (
         <YStack
             style={{
@@ -57,6 +64,7 @@ const Verify = () => {
                 color={"white"}
                 fontWeight={800}
                 borderRadius={50}
+                onPress={toLogin}
             >
                 Confirm Email
             </Button>

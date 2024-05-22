@@ -55,7 +55,7 @@ const Login = () => {
         });
         const { email, password } = getValues();
         // @ts-ignore
-        navigation.navigate("Product", { email, password, isFromLogin: true });
+        navigation.navigate("Home", { email, password, isFromLogin: true });
     };
 
     const toRegistration = () => {
@@ -188,6 +188,7 @@ const Login = () => {
                             >
                                 <MaterialCommunityIcons
                                     name={isShowPassword ? "eye" : "eye-off"}
+                                    size={20}
                                 />
                             </TouchableOpacity>
                         </XStack>
@@ -222,7 +223,7 @@ const Login = () => {
                                 paddingLeft: 2,
                             }}
                         >
-                            Buat Akun
+                            Create an account
                         </Text>
                     </TouchableOpacity>
                 </View>

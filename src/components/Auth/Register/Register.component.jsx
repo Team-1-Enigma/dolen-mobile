@@ -41,7 +41,7 @@ const Register = () => {
         formState: { errors },
     } = useForm({
         defaultValues: {
-            fullname: "",
+            fullName: "",
             phoneNumber: "",
             email: "",
             password: "",
@@ -62,9 +62,9 @@ const Register = () => {
             "getValues()": getValues(),
             "getFieldState('email')": getFieldState("email"),
         });
-        const { fullname, phoneNumber, email, password, confirmPassword } = getValues();
+        const { fullName, phoneNumber, email, password, confirmPassword } = getValues();
         // @ts-ignore
-        navigation.navigate("Verify", { fullname, phoneNumber, email, password, confirmPassword, isFromLogin: true });
+        navigation.navigate("Verify", { fullName, phoneNumber, email, password, confirmPassword, isFromLogin: true });
     };
 
     return (
@@ -115,7 +115,7 @@ const Register = () => {
                                     }}
                                 />
                             )}
-                            name="Fullname"
+                            name="fullName"
                         />
                         <TouchableOpacity>
                             <MaterialCommunityIcons
@@ -150,12 +150,13 @@ const Register = () => {
                                     placeholder={`Phone number`}
                                     onBlur={onBlur}
                                     value={value}
+                                    onChangeText={onChange}
                                     style={{
                                         position: "relative",
                                         paddingLeft: 35,
                                     }}
                                     keyboardType="numeric"
-                                    maxLength={16}
+                                    maxLength={13}
                                 />
                             )}
                             name="phoneNumber"

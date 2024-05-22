@@ -47,9 +47,9 @@ const Home = () => {
                     </View>
                 </YStack>
 
-                <YStack padding={20} gap={25} marginTop={20}>
-                    <View gap={5}>
-                        <H3>Plan your best travel ever </H3>
+                <YStack padding={20} gap={10} marginTop={20}>
+                    <View gap={5} marginBottom={10} paddingLeft={2}>
+                        <Text style={{ fontSize: 31, fontWeight: 700 }}>Plan Your Best Travel Ever </Text>
                         <Text>Making the Most of Your Travel Experience in 2024</Text>
                     </View>
                     <XStack width="100%">
@@ -58,6 +58,7 @@ const Home = () => {
                             source={images.bromo1}
                         />
                     </XStack>
+                    <H3 paddingLeft={2}>Bromo</H3>
                 </YStack>
             </ScrollView>
         </>
