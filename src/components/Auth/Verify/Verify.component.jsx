@@ -60,7 +60,7 @@ const Verify = () => {
             <Button
                 size={"$5"}
                 width={"100%"}
-                backgroundColor={"#4169E1"}
+                backgroundColor={"#07C9F0"}
                 color={"white"}
                 fontWeight={800}
                 borderRadius={50}

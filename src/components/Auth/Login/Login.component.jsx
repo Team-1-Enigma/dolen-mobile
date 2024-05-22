@@ -64,14 +64,13 @@ const Login = () => {
 
     return (
         <ScrollView
-            marginTop={50}
             alignItems="center"
             justifyContent={"center"}
             padding={20}
+            width={"100%"}
         >
             <YStack
                 flex={1}
-                justifyContent="center"
                 alignItems="center"
                 gap={15}
             >
