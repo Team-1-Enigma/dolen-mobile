@@ -1,5 +1,8 @@
 const icon = require("./logo/logo.png");
 
+// User
+const profile = require("./man.png")
+
 // Home Images
 const bromo = require("./home/home.jpg")
 const bromo1 = require("./home/home1.jpg")
@@ -20,5 +23,8 @@ export default{
 
     // home-screen
     bromo,
-    bromo1
+    bromo1,
+
+    // user
+    profile
 }

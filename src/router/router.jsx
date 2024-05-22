@@ -9,6 +9,7 @@ import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 
 // icons
 import Octicons from "@expo/vector-icons/Octicons";
+import User from "../screens/User/User";
 
 const Stack = createNativeStackNavigator(); 
 const Tabs = AnimatedTabBarNavigator();
@@ -38,12 +39,12 @@ const BottomTab = () => (
             }}
         />
                 <Tabs.Screen
-            name="Login"
-            component={Login}
+            name="User"
+            component={User}
             options={{
                 tabBarIcon: ({ focus, color, size }) => (
                     <Octicons
-                        name="mail"
+                        name="person"
                         size={24}
                         color={!focus ? color : "#07C9F0"}
                     />
@@ -61,7 +62,7 @@ const Router = () => {
                 screenOptions={{
                     headerShown: false,
                 }}
-                initialRouteName="App"
+                initialRouteName="User"
             >
                 <Stack.Screen name="App" component={BottomTab} />
                 {/* Auth */}
@@ -70,7 +71,7 @@ const Router = () => {
                 <Stack.Screen name="Verify" component={Verify} />
 
                 {/* Screens */}
-                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="User" component={User} />
             </Stack.Navigator>
         </NavigationContainer>
     );
