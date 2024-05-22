@@ -2,8 +2,15 @@ import React from "react";
 import { Image, Text, View } from "react-native";
 import { H1, Button, XStack, YStack, H2 } from "tamagui";
 import images from "../../../../assets/images";
+import { useNavigation } from "@react-navigation/native";
 
 const Verify = () => {
+    const navigation = useNavigation()
+
+    const toHomepage = () => {
+        navigation.navigate("Home");
+    };
+
     return (
         <YStack
             style={{
@@ -53,10 +60,11 @@ const Verify = () => {
             <Button
                 size={"$5"}
                 width={"100%"}
-                backgroundColor={"#4169E1"}
+                backgroundColor={"#07C9F0"}
                 color={"white"}
                 fontWeight={800}
                 borderRadius={50}
+                onPress={toHomepage}
             >
                 Confirm Email
             </Button>

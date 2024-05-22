@@ -55,7 +55,7 @@ const Login = () => {
         });
         const { email, password } = getValues();
         // @ts-ignore
-        navigation.navigate("Product", { email, password, isFromLogin: true });
+        navigation.navigate("Verify", { email, password, isFromLogin: true });
     };
 
     const toRegistration = () => {
@@ -64,14 +64,13 @@ const Login = () => {
 
     return (
         <ScrollView
-            marginTop={50}
             alignItems="center"
             justifyContent={"center"}
             padding={20}
+            width={"100%"}
         >
             <YStack
                 flex={1}
-                justifyContent="center"
                 alignItems="center"
                 gap={15}
             >
@@ -204,7 +203,7 @@ const Login = () => {
                     size={"$5"}
                     width={"100%"}
                     onPress={handleSubmit(onSubmit)}
-                    backgroundColor={"#4169E1"}
+                    backgroundColor={"#07C9F0"}
                     color={"white"}
                     fontWeight={800}
                     borderRadius={50}
@@ -217,12 +216,12 @@ const Login = () => {
                         <Text
                             onPress={toRegistration}
                             style={{
-                                color: "#4169E1",
+                                color: "#07C9F0",
                                 fontWeight: "800",
                                 paddingLeft: 2,
                             }}
                         >
-                            Buat Akun
+                            Create an account
                         </Text>
                     </TouchableOpacity>
                 </View>

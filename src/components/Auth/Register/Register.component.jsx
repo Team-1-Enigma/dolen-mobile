@@ -23,12 +23,10 @@ const RegisterFormSchema = yup
             .string()
             .min(8, "Password must be at least 8 characters")
             .required("Password must be filled"),
-        confirmPassword: yup
-            .string()
-            .min(8, "Confirm password must be at least 8 characters")
-            .required("Confirm password must be filled"),
     })
     .required();
+
+    // hapus confirm password trus cek2 maneh 
 
 const Register = () => {
     const [isShowPassword, setIsShowPassword] = useState(false);
@@ -59,22 +57,21 @@ const Register = () => {
             "getValues()": getValues(),
             "getFieldState('email')": getFieldState("email"),
         });
-        const { email, password } = getValues();
+        const { fullName, phoneNumber, email, password } = getValues();
         // @ts-ignore
-        navigation.navigate("Login", { email, password, isFromLogin: true });
+        navigation.navigate("Login", { fullName, phoneNumber, email, password, isFromLogin: true });
     };
 
     return (
         <ScrollView
-            marginTop={50}
             alignItems="center"
+            justifyContent={"center"}
             padding={20}
+            width={"100%"}
         >
             <YStack
                 flex={1}
-                justifyContent="center"
                 alignItems="center"
-                // padding={20}
                 gap={15}
             >
                 <XStack width="50%">
@@ -112,7 +109,7 @@ const Register = () => {
                                     }}
                                 />
                             )}
-                            name="Fullname"
+                            name="fullName"
                         />
                         <TouchableOpacity>
                             <MaterialCommunityIcons
@@ -146,6 +143,7 @@ const Register = () => {
                                     size={16}
                                     placeholder={`Phone number`}
                                     onBlur={onBlur}
+                                    onChangeText={onChange}
                                     value={value}
                                     style={{
                                         position: "relative",
@@ -283,72 +281,6 @@ const Register = () => {
                             </Text>
                         )}
                     </YStack>
-
-                    <YStack width={"100%"} marginTop={15}>
-                        <XStack
-                            alignItems="center"
-                            // backgroundColor={"green"}
-                        >
-                            <Controller
-                                control={control}
-                                rules={{
-                                    required: true,
-                                }}
-                                render={({
-                                    field,
-                                    field: { onChange, onBlur, value },
-                                }) => (
-                                    <Input
-                                        secureTextEntry={!isShowPassword}
-                                        size={16}
-                                        placeholder={`Confirm Password`}
-                                        width={"100%"}
-                                        onBlur={onBlur}
-                                        onChangeText={(event) => {
-                                            console.log("event", event);
-                                            onChange(event);
-                                        }}
-                                        value={value}
-                                        style={{
-                                            position: "relative",
-                                            paddingLeft: 35,
-                                        }}
-                                    />
-                                )}
-                                name="confirmPassword"
-                            />
-                            <TouchableOpacity>
-                                <MaterialCommunityIcons
-                                    style={{
-                                        position: "absolute",
-                                        marginTop: -20,
-                                        padding: 10,
-                                        color: "grey",
-                                        left: -352,
-                                    }}
-                                    size={17}
-                                    name="lock"
-                                />
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={{
-                                    position: "absolute",
-                                    right: 16,
-                                    // backgroundColor: "yellow",
-                                }}
-                                onPress={onPasswordToggle}
-                            >
-                                <MaterialCommunityIcons
-                                    name={isShowPassword ? "eye" : "eye-off"}
-                                />
-                            </TouchableOpacity>
-                        </XStack>
-                        {errors.confirmPassword && (
-                            <Text marginTop={1} color={"red"}>
-                                {errors.confirmPassword.message}
-                            </Text>
-                        )}
-                    </YStack>
                 </YStack>
 
                 <Button
@@ -356,7 +288,7 @@ const Register = () => {
                     size={"$5"}
                     width={"100%"}
                     onPress={handleSubmit(onSubmit)}
-                    backgroundColor={"#2c5fd4"}
+                    backgroundColor={"#07C9F0"}
                     color={"white"}
                 >
                     Register
