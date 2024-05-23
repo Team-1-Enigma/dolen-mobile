@@ -3,14 +3,24 @@ import { Text, TouchableOpacity } from "react-native";
 import { Button, H2, H3, H4, H5, H6, Image, View, XStack, YStack } from "tamagui";
 import images from "../../../assets/images";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const User = () => {
+    const navigation = useNavigation()
+
+    const toHomepage = () => {
+        navigation.navigate("Home");
+    };
+    const toEditpage = () => {
+        navigation.navigate("EditUser");
+    };
+
     return (
         <>
             <YStack
                 flex={1}
                 alignItems="start"
-                justifyContent={"center"}
+                justifyContent="center"
                 padding={20}
             >
                 <XStack
@@ -26,6 +36,7 @@ const User = () => {
                             }}
                             size={30}
                             name="arrow-left"
+                            onPress={toHomepage}
                         />
                     </TouchableOpacity>
                     <H2>Profile</H2>
@@ -57,7 +68,7 @@ const User = () => {
                         marginTop={15}
                         size={"$3"}
                         width={"50%"}
-                        // onPress={handleSubmit(onSubmit)}
+                        onPress={toEditpage}
                         backgroundColor={"#07C9F0"}
                         color={"white"}
                         fontWeight={800}
@@ -284,7 +295,7 @@ const User = () => {
                     </YStack>
                 </TouchableOpacity> */}
                 
-                <YStack alignItems="center" marginVertical={30}>
+                <YStack alignItems="center" marginTop={40}>
                     <H6 style={{ color: "gray" }}>2024 &copy;Copyright</H6>
                     <Text style={{ color: "gray", fontSize: 16 }}>Dolen</Text>
                 </YStack>
