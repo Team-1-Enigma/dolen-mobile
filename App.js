@@ -6,6 +6,7 @@ import { TamaguiProvider, YStack } from "tamagui";
 import Router from "./src/router/router";
 import { useFonts } from "expo-font";
 import { useCallback } from "react";
+import Header from "./src/components/layout/Header";
 
 const tamaguiConfig = createTamagui(config);
 
@@ -33,6 +34,7 @@ export default function App() {
                 <Theme name="light">
                     <StatusBar />
                     <YStack flex={1}>
+                        <Header/>
                         <Router />
                     </YStack>
                 </Theme>

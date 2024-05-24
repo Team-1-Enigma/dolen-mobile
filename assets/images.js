@@ -11,6 +11,7 @@ const verify = require("./auth/mail-box.png")
 
 // Travel
 const suitcase = require("./travel/suitcase.jpg")
+const balaikambang = require("./travel/balaikambang-beach.jpg")
 
 export default{
     // logo
@@ -26,6 +27,7 @@ export default{
     bromo1,
 
     // travel-screen
-    suitcase
+    suitcase,
+    balaikambang
 
 }

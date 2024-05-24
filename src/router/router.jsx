@@ -11,6 +11,7 @@ import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 import Octicons from "@expo/vector-icons/Octicons";
 import Welcome from "../screens/Welcome";
 import Travel from "../screens/Travel/Travel";
+import Trip from "../screens/Trip/Trip";
 
 const Stack = createNativeStackNavigator(); 
 const Tabs = AnimatedTabBarNavigator();
@@ -63,9 +64,10 @@ const Router = () => {
                 screenOptions={{
                     headerShown: false,
                 }}
-                initialRouteName="Travel"
+                initialRouteName="Trip"
             >
                 <Stack.Screen name="App" component={BottomTab} />
+
                 {/* Auth */}
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Register" component={Register} />
@@ -75,6 +77,7 @@ const Router = () => {
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Welcome" component={Welcome} />
                 <Stack.Screen name="Travel" component={Travel} />
+                <Stack.Screen name="Trip" component={Trip} />
             </Stack.Navigator>
         </NavigationContainer>
     );
