@@ -9,6 +9,7 @@ import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 
 // icons
 import Octicons from "@expo/vector-icons/Octicons";
+import Welcome from "../screens/Welcome";
 
 const Stack = createNativeStackNavigator(); 
 const Tabs = AnimatedTabBarNavigator();
@@ -71,6 +72,7 @@ const Router = () => {
 
                 {/* Screens */}
                 <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="Welcome" component={Welcome} />
             </Stack.Navigator>
         </NavigationContainer>
     );

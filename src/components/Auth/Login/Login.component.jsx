@@ -55,7 +55,7 @@ const Login = () => {
         });
         const { email, password } = getValues();
         // @ts-ignore
-        navigation.navigate("Home", { email, password, isFromLogin: true });
+        navigation.navigate("Welcome", { email, password, isFromLogin: true });
     };
 
     const toRegistration = () => {

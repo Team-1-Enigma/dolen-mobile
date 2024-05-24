@@ -271,6 +271,7 @@ const Register = () => {
                             >
                                 <MaterialCommunityIcons
                                     name={isShowPassword ? "eye" : "eye-off"}
+                                    size={20}
                                 />
                             </TouchableOpacity>
                         </XStack>
