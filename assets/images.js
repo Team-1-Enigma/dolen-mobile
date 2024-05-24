@@ -9,6 +9,9 @@ const login = require("./auth/login.png");
 const register = require("./auth/register.png")
 const verify = require("./auth/mail-box.png")
 
+// Travel
+const suitcase = require("./travel/suitcase.jpg")
+
 export default{
     // logo
     icon,
@@ -20,5 +23,9 @@ export default{
 
     // home-screen
     bromo,
-    bromo1
+    bromo1,
+
+    // travel-screen
+    suitcase
+
 }

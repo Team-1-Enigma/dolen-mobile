@@ -36,8 +36,6 @@ const Welcome = () => {
                         width: 250,
                         justifyContent: "space-between",
                         alignItems: "center",
-                        // display: "flex",
-                        // flexDirection: "row",
                         gap: 15,
                     }}
                 >
