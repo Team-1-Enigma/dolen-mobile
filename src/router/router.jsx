@@ -62,7 +62,7 @@ const Router = () => {
                 screenOptions={{
                     headerShown: false,
                 }}
-                initialRouteName="App"
+                initialRouteName="Welcome"
             >
                 <Stack.Screen name="App" component={BottomTab} />
                 {/* Auth */}

@@ -1,8 +1,9 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { H2, H3, Image, ScrollView, XStack, YStack, Button, H5 } from "tamagui";
 import images from "../../assets/images";
 import { useNavigation } from "@react-navigation/native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Welcome = () => {
     const navigation = useNavigation()
@@ -76,12 +77,29 @@ const Welcome = () => {
                         width={"100%"}
                         onPress={toHomepage}
                         backgroundColor={"#07C9F0"}
-                        color={"white"}
-                        fontWeight={800}
                         borderRadius={50}
                         position="absolute"
+                        alignItems="center"
                     >
-                        Get Started
+                        <Text 
+                            style={{
+                                color: "white",
+                                fontSize: 19,
+                                fontWeight: 800
+                            }}
+                        >
+                            Get Started
+                        </Text>
+
+                        <TouchableOpacity>
+                            <MaterialCommunityIcons
+                                style={{
+                                    color: "white",
+                                }}
+                                size={23}
+                                name="arrow-right"
+                            />
+                        </TouchableOpacity>
                     </Button>
                 </View>
             </YStack>
