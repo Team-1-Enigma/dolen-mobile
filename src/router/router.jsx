@@ -12,6 +12,7 @@ import Octicons from "@expo/vector-icons/Octicons";
 import Welcome from "../screens/Welcome";
 import Travel from "../screens/Travel/Travel";
 import Trip from "../screens/Trip/Trip";
+import TripDetails from "../screens/Trip/TripDetails";
 
 const Stack = createNativeStackNavigator(); 
 const Tabs = AnimatedTabBarNavigator();
@@ -77,7 +78,9 @@ const Router = () => {
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Welcome" component={Welcome} />
                 <Stack.Screen name="Travel" component={Travel} />
+                
                 <Stack.Screen name="Trip" component={Trip} />
+                <Stack.Screen name="TripDetails" component={TripDetails} />
             </Stack.Navigator>
         </NavigationContainer>
     );

@@ -9,7 +9,6 @@ import {
 import { H3, H4, H5, Image, XStack, YStack, Button } from "tamagui";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import images from "../../../assets/images";
-import TravelList from "../Travel/components/TravelList";
 import TripList from "./components/TripList";
 
 const Trip = () => {
@@ -45,13 +44,24 @@ const Trip = () => {
                         }}
                         source={images.login}
                     /> */}
+
+                        <TouchableOpacity>
+                            <Button backgroundColor={"#07C9F0"} color={"white"}>
+                                <MaterialCommunityIcons
+                                    style={{
+                                        color: "white",
+                                        marginTop: 3,
+                                    }}
+                                    size={22}
+                                    name="plus"
+                                />
+                            </Button>
+                        </TouchableOpacity>
                     </XStack>
 
                     <YStack marginTop={10}>
-                        <H5 fontWeight={800}>Choose your favorite trip</H5>
                         <YStack
                             width={"100%"}
-                            marginTop={10}
                             borderWidth={1}
                             borderRadius={10}
                             paddingVertical={5}
@@ -79,8 +89,11 @@ const Trip = () => {
                             </TouchableOpacity>
                         </YStack>
 
+                        <H5 fontWeight={800} marginBottom={10} marginTop={20}>
+                            Choose your favorite trip
+                        </H5>
                         <XStack
-                            marginVertical={20}
+                            marginBottom={20}
                             justifyContent="space-between"
                             gap={5}
                         >
@@ -190,7 +203,6 @@ const Trip = () => {
                         <TripList />
                         <TripList />
                         <TripList />
-
                     </YStack>
                 </YStack>
             </>

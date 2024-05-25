@@ -3,8 +3,14 @@ import { Text } from "react-native";
 import { H4, H5, Image, View, XStack, YStack } from "tamagui";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import images from "../../../../assets/images";
+import { useNavigation } from "@react-navigation/native";
 
 const TripList = () => {
+    const navigation = useNavigation()
+    const toDetail = () => {
+        navigation.navigate("TripDetails")
+    }
+
     return (
         <>
             <YStack
@@ -12,6 +18,7 @@ const TripList = () => {
                 padding={10}
                 borderRadius={10}
                 marginTop={15}
+                onPress={toDetail}
             >
                 <Image
                     style={{
