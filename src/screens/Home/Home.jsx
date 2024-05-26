@@ -1,9 +1,9 @@
 import React from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
-import { H2, H3, H5, Image, ScrollView, XStack, YStack } from "tamagui";
+import { H2, H3, H4, H5, H6, Image, ScrollView, XStack, YStack } from "tamagui";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import images from "../../../assets/images";
-import { useNavigation } from "@react-navigation/native";
+// import { useNavigation } from "@react-navigation/native";
 
 const Home = () => {
     // const navigation = useNavigation()
@@ -39,8 +39,12 @@ const Home = () => {
                     </View>
 
                     {/* Button */}
-                    <XStack paddingVertical={15} gap={50} justifyContent="center">
-                        <YStack gap={10} alignItems="center">
+                    <XStack
+                        paddingVertical={20}
+                        gap={50}
+                        justifyContent="center"
+                    >
+                        <YStack gap={5} alignItems="center">
                             <MaterialCommunityIcons
                                 style={{
                                     padding: 10,
@@ -48,12 +52,12 @@ const Home = () => {
                                     backgroundColor: "#07C9F0",
                                     borderRadius: 15,
                                 }}
-                                size={30}
-                                name="email"
+                                size={35}
+                                name="train-car"
                             />
-                            <H5>Travel</H5>
+                            <H6 fontWeight={800}>Travel</H6>
                         </YStack>
-                        <YStack gap={10} alignItems="center">
+                        <YStack gap={5} alignItems="center">
                             <MaterialCommunityIcons
                                 style={{
                                     padding: 10,
@@ -61,12 +65,12 @@ const Home = () => {
                                     backgroundColor: "#07C9F0",
                                     borderRadius: 15,
                                 }}
-                                size={30}
-                                name="email"
+                                size={35}
+                                name="caravan"
                             />
-                            <H5>Trip</H5>
+                            <H6 fontWeight={800}>Trip</H6>
                         </YStack>
-                        <YStack gap={10} alignItems="center">
+                        <YStack gap={5} alignItems="center">
                             <MaterialCommunityIcons
                                 style={{
                                     padding: 10,
@@ -74,12 +78,60 @@ const Home = () => {
                                     backgroundColor: "#07C9F0",
                                     borderRadius: 15,
                                 }}
-                                size={30}
-                                name="email"
+                                size={35}
+                                name="account"
                             />
-                            <H5>Travel</H5>
+                            <H6 fontWeight={800}>Profile</H6>
                         </YStack>
                     </XStack>
+
+                    {/* Trip List */}
+                    <YStack
+                        backgroundColor={"white"}
+                        padding={10}
+                        borderRadius={10}
+                        marginTop={15}
+                    >
+                        <Image
+                            style={{
+                                height: 200,
+                                width: 345,
+                                borderRadius: 10,
+                            }}
+                            source={images.bromo}
+                        />
+                        <XStack
+                            flexDirection="column"
+                            gap={5}
+                            width={330}
+                            paddingHorizontal={5}
+                            paddingVertical={10}
+                        >
+                            <H4 fontWeight={700} color={"black"}>
+                                Balaikambang Beach
+                            </H4>
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    marginTop: 4,
+                                }}
+                            >
+                                <MaterialCommunityIcons
+                                    style={{
+                                        color: "red",
+                                        marginLeft: -4,
+                                    }}
+                                    size={17}
+                                    name="map-marker"
+                                />
+                                <Text
+                                    style={{ color: "black", fontWeight: 700 }}
+                                >
+                                    Bantur, Kabupaten Malang, Jawa Timur
+                                </Text>
+                            </View>
+                        </XStack>
+                    </YStack>
                 </YStack>
             </>
         );

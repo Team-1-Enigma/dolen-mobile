@@ -44,7 +44,7 @@ const Welcome = () => {
                     <H2
                         style={{
                             color: "white",
-                            marginTop: 200,
+                            marginTop: 150,
                             lineHeight: 50,
                             textAlign: "center",
                             width: 320,
@@ -55,7 +55,7 @@ const Welcome = () => {
                     <Text
                         style={{
                             color: "white",
-                            marginTop: 300,
+                            marginTop: 250,
                             lineHeight: 30,
                             position: "absolute",
                             width: 340,
@@ -72,7 +72,7 @@ const Welcome = () => {
                         that will always remain in your heart.
                     </Text>
                     <Button
-                        marginTop={480}
+                        marginTop={430}
                         size={"$5"}
                         width={"100%"}
                         onPress={toHomepage}
