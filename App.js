@@ -34,11 +34,11 @@ export default function App() {
       <TamaguiProvider config={tamaguiConfig}>
         <Theme name="light">
           <StatusBar />
-          <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          {/* <ScrollView contentContainerStyle={{ flexGrow: 1 }}> */}
             <YStack flex={1}>
               <Router />
             </YStack>
-          </ScrollView>
+          {/* </ScrollView> */}
         </Theme>
       </TamaguiProvider>
     </SafeAreaProvider>
