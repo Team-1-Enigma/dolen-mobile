@@ -8,13 +8,19 @@ import {
 import { H5, Image, XStack, YStack } from "tamagui";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import images from "../../../../assets/images";
+import { useNavigation } from "@react-navigation/native";
 
 const TravelList = () => {
+    const navigation = useNavigation()
+    const toDetails = () => {
+        navigation.navigate("TravelDetails")
+    }
+
     return (
         <>
             <YStack marginTop={15}>
                 <XStack>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={toDetails}>
                         <XStack
                             style={{
                                 display: "flex",
