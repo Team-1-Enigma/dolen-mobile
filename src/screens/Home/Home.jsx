@@ -301,7 +301,12 @@ const Home = () => {
         return (
             <>
                 <View
-                    style={{ backgroundColor: "#07C9F0", height: 280 }}
+                    style={{
+                        backgroundColor: "#07C9F0",
+                        height: 280,
+                        borderBottomRightRadius: 70,
+                        borderBottomLeftRadius: 100,
+                    }}
                 ></View>
                 <YStack justifyContent="center" padding={20} marginTop={-240}>
                     <XStack alignItems="center" marginBottom={20} gap={10}>
