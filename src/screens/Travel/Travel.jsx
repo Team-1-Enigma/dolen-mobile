@@ -24,34 +24,38 @@ const Travel = () => {
                     justifyContent="center"
                     alignItems="start"
                     padding={20}
-                    marginVertical={20}
                     width={"100%"}
                 >
                     <XStack
                         width={"100%"}
                         justifyContent="space-between"
                         alignItems="center"
-                        paddingVertical={15}
+                        paddingBottom={15}
+                        marginTop={-15}
                     >
-                        <TouchableOpacity>
-                            <MaterialCommunityIcons
-                                style={{
-                                    color: "black",
-                                }}
-                                size={23}
-                                name="arrow-left"
-                                onPress={toHomepage}
-                            />
-                        </TouchableOpacity>
+                        <XStack alignItems="center" gap={10}>
+                            <TouchableOpacity>
+                                <MaterialCommunityIcons
+                                    style={{
+                                        color: "black",
+                                        marginTop: 3
+                                    }}
+                                    size={23}
+                                    name="arrow-left"
+                                    onPress={toHomepage}
+                                />
+                            </TouchableOpacity>
+                            <H5 fontWeight={800}>Travel</H5>
+                        </XStack>
 
-                        <Image
+                        {/* <Image
                             style={{
                                 aspectRatio: 1,
                                 width: "11%",
                                 borderRadius: 100,
                             }}
                             source={images.login}
-                        />
+                        /> */}
                     </XStack>
 
                     <YStack>
@@ -123,6 +127,7 @@ const Travel = () => {
 
                     <YStack marginVertical={20}>
                         <H4>Recommended</H4>
+                        <View style={{ borderWidth: 1, borderColor: "lightgray", marginVertical: 5 }}></View>
                         <TravelList />
                         <TravelList />
                         <TravelList />

@@ -7,7 +7,6 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Welcome = () => {
     const navigation = useNavigation()
-
     const toHomepage = () => {
         navigation.navigate("App");
     };

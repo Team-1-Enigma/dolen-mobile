@@ -12,11 +12,16 @@ import Octicons from "@expo/vector-icons/Octicons";
 
 // Menus
 import Welcome from "../screens/Welcome";
+
 import User from "../screens/User/User";
 import EditUser from "../screens/User/EditUser";
+
 import Travel from "../screens/Travel/Travel";
 import TravelDetails from "../screens/Travel/TravelDetails";
 import TravelReview from "../screens/Travel/components/TravelReview";
+
+import Trip from "../screens/Trip/Trip";
+import TripDetails from "../screens/Trip/TripDetails";
 
 const Stack = createNativeStackNavigator();
 const Tabs = AnimatedTabBarNavigator();
@@ -68,9 +73,10 @@ const Router = () => {
                 screenOptions={{
                     headerShown: false,
                 }}
-                initialRouteName="Travel"
+                initialRouteName="App"
             >
                 <Stack.Screen name="App" component={BottomTab} />
+
                 {/* Auth */}
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Register" component={Register} />
@@ -85,6 +91,9 @@ const Router = () => {
                 <Stack.Screen name="Travel" component={Travel} />
                 <Stack.Screen name="TravelDetails" component={TravelDetails} />
                 <Stack.Screen name="TravelReview" component={TravelReview} />
+                
+                <Stack.Screen name="Trip" component={Trip} />
+                <Stack.Screen name="TripDetails" component={TripDetails} />
             </Stack.Navigator>
         </NavigationContainer>
     );

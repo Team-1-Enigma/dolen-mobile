@@ -3,10 +3,18 @@ import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { H2, H3, H4, H5, H6, Image, ScrollView, XStack, YStack } from "tamagui";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import images from "../../../assets/images";
+import { useNavigation } from "@react-navigation/native";
 // import { useNavigation } from "@react-navigation/native";
 
 const Home = () => {
-    // const navigation = useNavigation()
+    const navigation = useNavigation()
+
+    const toTravel = () => {
+        navigation.navigate("Travel")
+    }
+    const toTrip = () => {
+        navigation.navigate("Trip")
+    }
 
     const TripList = () => {
         return (
@@ -308,7 +316,7 @@ const Home = () => {
                         borderBottomLeftRadius: 100,
                     }}
                 ></View>
-                <YStack justifyContent="center" padding={20} marginTop={-240}>
+                <YStack justifyContent="center" padding={20} marginTop={-280}>
                     <XStack alignItems="center" marginBottom={20} gap={10}>
                         <Image
                             style={{
@@ -342,7 +350,7 @@ const Home = () => {
                         justifyContent="center"
                     >
                         <YStack gap={5} alignItems="center">
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={toTravel}>
                                 <MaterialCommunityIcons
                                     style={{
                                         padding: 10,
@@ -357,7 +365,7 @@ const Home = () => {
                             <H6 fontWeight={800}>Travel</H6>
                         </YStack>
                         <YStack gap={5} alignItems="center">
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={toTrip}>
                                 <MaterialCommunityIcons
                                     style={{
                                         padding: 10,

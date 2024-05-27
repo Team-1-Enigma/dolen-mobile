@@ -38,6 +38,7 @@ export default{
     profile,
 
     // travel-screen
-    suitcase
+    suitcase,
+    balaikambang
 
 }

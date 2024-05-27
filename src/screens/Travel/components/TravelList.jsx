@@ -1,7 +1,5 @@
 import {
-    FlatList,
     Text,
-    TextInput,
     TouchableOpacity,
     View,
 } from "react-native";
@@ -83,8 +81,9 @@ const TravelList = () => {
                                 style={{
                                     position: "absolute",
                                     right: 0,
-                                    top: 60,
-                                    padding: 10,
+                                    top: 65,
+                                    paddingVertical: 8,
+                                    paddingHorizontal: 15,
                                     backgroundColor: "white",
                                     color: "#07C9F0",
                                     borderBottomRightRadius: 20,
