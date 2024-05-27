@@ -55,7 +55,7 @@ const Login = () => {
         });
         const { email, password } = getValues();
         // @ts-ignore
-        navigation.navigate("Verify", { email, password, isFromLogin: true });
+        navigation.navigate("Welcome", { email, password, isFromLogin: true });
     };
 
     const toRegistration = () => {
@@ -187,6 +187,7 @@ const Login = () => {
                             >
                                 <MaterialCommunityIcons
                                     name={isShowPassword ? "eye" : "eye-off"}
+                                    size={20}
                                 />
                             </TouchableOpacity>
                         </XStack>

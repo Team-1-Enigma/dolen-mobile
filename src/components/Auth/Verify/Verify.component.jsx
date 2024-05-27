@@ -7,9 +7,9 @@ import { useNavigation } from "@react-navigation/native";
 const Verify = () => {
     const navigation = useNavigation()
 
-    const toHomepage = () => {
-        navigation.navigate("Home");
-    };
+    const toLogin = () => {
+        navigation.navigate("Login")
+    }
 
     return (
         <YStack
@@ -64,7 +64,7 @@ const Verify = () => {
                 color={"white"}
                 fontWeight={800}
                 borderRadius={50}
-                onPress={toHomepage}
+                onPress={toLogin}
             >
                 Confirm Email
             </Button>

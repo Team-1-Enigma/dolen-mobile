@@ -2,10 +2,8 @@ import { useState } from "react";
 import { Image, ScrollView, TouchableOpacity, View } from "react-native";
 import { Button, H2, Input, XStack, YStack, Text } from "tamagui";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-// alternativenya adalah formik
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-// alternativenya adalah zod
 import * as yup from "yup";
 
 import images from "../../../../assets/images";
@@ -26,8 +24,6 @@ const RegisterFormSchema = yup
     })
     .required();
 
-    // hapus confirm password trus cek2 maneh 
-
 const Register = () => {
     const [isShowPassword, setIsShowPassword] = useState(false);
     const navigation = useNavigation();
@@ -39,8 +35,11 @@ const Register = () => {
         formState: { errors },
     } = useForm({
         defaultValues: {
+            fullName: "",
+            phoneNumber: "",
             email: "",
             password: "",
+            confirmPassword: "",
         },
         resolver: yupResolver(RegisterFormSchema),
     });
@@ -59,7 +58,7 @@ const Register = () => {
         });
         const { fullName, phoneNumber, email, password } = getValues();
         // @ts-ignore
-        navigation.navigate("Login", { fullName, phoneNumber, email, password, isFromLogin: true });
+        navigation.navigate("Verify", { fullName, phoneNumber, email, password, isFromLogin: true });
     };
 
     return (
@@ -150,7 +149,7 @@ const Register = () => {
                                         paddingLeft: 35,
                                     }}
                                     keyboardType="numeric"
-                                    maxLength={16}
+                                    maxLength={13}
                                 />
                             )}
                             name="phoneNumber"
@@ -272,6 +271,7 @@ const Register = () => {
                             >
                                 <MaterialCommunityIcons
                                     name={isShowPassword ? "eye" : "eye-off"}
+                                    size={20}
                                 />
                             </TouchableOpacity>
                         </XStack>
