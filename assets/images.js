@@ -15,6 +15,9 @@ const login = require("./auth/login.png");
 const register = require("./auth/register.png")
 const verify = require("./auth/mail-box.png")
 
+// Travel
+const suitcase = require("./travel/suitcase.jpg")
+
 export default{
     // logo
     icon,
@@ -32,5 +35,9 @@ export default{
     map,
 
     // user
-    profile
+    profile,
+
+    // travel-screen
+    suitcase
+
 }
