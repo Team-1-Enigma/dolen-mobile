@@ -6,11 +6,10 @@ import { TamaguiProvider, YStack } from "tamagui";
 import Router from "./src/router/router";
 import { useFonts } from "expo-font";
 import { useCallback } from "react";
-import Header from "./src/components/layout/Header";
+import { Provider } from "react-redux";
+import store from "./src/app/store";
 
 const tamaguiConfig = createTamagui(config);
-
-// SplashScreen.preventAutoHideAsync();
 
 export default function App() {
     const [fontsLoaded, fontError] = useFonts({
@@ -20,7 +19,6 @@ export default function App() {
 
     const onLayoutRootView = useCallback(async () => {
         if (fontsLoaded || fontError) {
-            // await SplashScreen.hideAsync();
         }
     }, [fontsLoaded, fontError]);
 
@@ -29,16 +27,26 @@ export default function App() {
     }
 
     return (
-        <SafeAreaProvider>
-            <TamaguiProvider config={tamaguiConfig}>
-                <Theme name="light">
-                    <StatusBar />
-                    <YStack flex={1}>
-                        <Header/>
-                        <Router />
-                    </YStack>
-                </Theme>
-            </TamaguiProvider>
-        </SafeAreaProvider>
+        <Provider store={store}>
+            <SafeAreaProvider>
+                <TamaguiProvider config={tamaguiConfig}>
+                    <Theme name="light">
+                        <StatusBar />
+                        <View style={{ flex: 1 }}>
+                            <Router />
+                        </View>
+                    </Theme>
+                </TamaguiProvider>
+            </SafeAreaProvider>
+        </Provider>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: "#fff",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+});

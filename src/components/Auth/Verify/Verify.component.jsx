@@ -28,7 +28,7 @@ const Verify = () => {
                 />
             </XStack>
 
-            <H2>Hello, Enigmanians</H2>
+            <H2>Hello, Everybody!</H2>
             <View
                 style={{
                     width: 320,
