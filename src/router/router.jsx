@@ -15,7 +15,7 @@ const Router = () => {
                 screenOptions={{
                     headerShown: false,
                 }}
-                initialRouteName="Register"
+                initialRouteName="Login"
             >
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Register" component={Register} />
