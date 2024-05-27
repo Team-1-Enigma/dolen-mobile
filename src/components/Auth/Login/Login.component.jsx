@@ -2,14 +2,14 @@ import { useState } from "react";
 import { Image, ScrollView, TouchableOpacity, View } from "react-native";
 import { Button, H2, Input, XStack, YStack, Text } from "tamagui";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-// alternativenya adalah formik
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-// alternativenya adalah zod
 import * as yup from "yup";
 
 import images from "../../../../assets/images";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { loginAction } from "../../../app/Features/auth/AuthSlice";
 
 const loginFormSchema = yup
     .object({
@@ -27,11 +27,11 @@ const loginFormSchema = yup
 const Login = () => {
     const [isShowPassword, setIsShowPassword] = useState(false);
     const navigation = useNavigation();
+    const dispatch = useDispatch()
     const {
         control,
         handleSubmit,
-        getValues,
-        getFieldState,
+        setError,
         formState: { errors },
     } = useForm({
         defaultValues: {
@@ -42,20 +42,28 @@ const Login = () => {
     });
 
     const onPasswordToggle = () => {
-        // setIsShowPassword(!setIsShowPassword);
         setIsShowPassword((previousIsShowPassword) => {
             return !previousIsShowPassword;
         });
     };
 
-    const onSubmit = () => {
-        console.log("Debug Form", {
-            "getValues()": getValues(),
-            "getFieldState('email')": getFieldState("email"),
-        });
-        const { email, password } = getValues();
-        // @ts-ignore
-        navigation.navigate("Verify", { email, password, isFromLogin: true });
+    const onSubmit = async (data) => {
+        console.log("Data from form", data);
+        try {
+            console.log(data);
+            const response = await dispatch(loginAction(data)).unwrap()
+            console.log(data);
+            console.log("response: ", response);
+            if (response) {
+                navigation.navigate("Verify")
+            } else {
+                setError(true)
+            }
+        } catch (error) {
+            console.log("test");
+            console.log(error)
+            setError(true)
+        }
     };
 
     const toRegistration = () => {
@@ -152,7 +160,7 @@ const Login = () => {
                                         width={"100%"}
                                         onBlur={onBlur}
                                         onChangeText={(event) => {
-                                            console.log("event", event);
+                                            // console.log("event", event);
                                             onChange(event);
                                         }}
                                         value={value}

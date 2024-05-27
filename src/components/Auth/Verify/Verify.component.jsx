@@ -8,7 +8,7 @@ const Verify = () => {
     const navigation = useNavigation()
 
     const toHomepage = () => {
-        navigation.navigate("Home");
+        navigation.navigate("Login");
     };
 
     return (

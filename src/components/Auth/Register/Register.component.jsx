@@ -10,6 +10,8 @@ import * as yup from "yup";
 
 import images from "../../../../assets/images";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { registerAction } from "../../../app/Features/auth/AuthSlice";
 
 const RegisterFormSchema = yup
     .object({
@@ -26,19 +28,19 @@ const RegisterFormSchema = yup
     })
     .required();
 
-    // hapus confirm password trus cek2 maneh 
-
 const Register = () => {
     const [isShowPassword, setIsShowPassword] = useState(false);
     const navigation = useNavigation();
+    const dispatch = useDispatch();
     const {
         control,
         handleSubmit,
-        getValues,
-        getFieldState,
+        setError,
         formState: { errors },
     } = useForm({
         defaultValues: {
+            fullName: "",
+            phoneNumber: "",
             email: "",
             password: "",
         },
@@ -46,20 +48,27 @@ const Register = () => {
     });
 
     const onPasswordToggle = () => {
-        // setIsShowPassword(!setIsShowPassword);
         setIsShowPassword((previousIsShowPassword) => {
             return !previousIsShowPassword;
         });
     };
 
-    const onSubmit = () => {
-        console.log("Debug Form", {
-            "getValues()": getValues(),
-            "getFieldState('email')": getFieldState("email"),
-        });
-        const { fullName, phoneNumber, email, password } = getValues();
-        // @ts-ignore
-        navigation.navigate("Login", { fullName, phoneNumber, email, password, isFromLogin: true });
+    const onSubmit = async (data) => {
+        console.log("Data from form: ", data);
+        try {
+            console.log("in try catch", data);
+            const response = await dispatch(registerAction(data)).unwrap();
+            if (response) {
+                console.log("Register successfully");
+                navigation.navigate("Verify");
+            } else {
+                setError(true);
+            }
+        } catch (e) {
+            console.log("test");
+            console.log(error);
+            setError(true);
+        }
     };
 
     return (
@@ -69,11 +78,7 @@ const Register = () => {
             padding={20}
             width={"100%"}
         >
-            <YStack
-                flex={1}
-                alignItems="center"
-                gap={15}
-            >
+            <YStack flex={1} alignItems="center" gap={15}>
                 <XStack width="50%">
                     <Image
                         style={{ aspectRatio: 1, width: "100%" }}
@@ -81,7 +86,6 @@ const Register = () => {
                     />
                 </XStack>
 
-                {/** Title (2nd Item) */}
                 <H2 textAlign="center">Dolen Account Registration</H2>
                 <Text style={{ color: "grey" }}>
                     Enter details to create your Travel Pulse account
