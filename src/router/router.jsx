@@ -63,7 +63,7 @@ const Router = () => {
                 screenOptions={{
                     headerShown: false,
                 }}
-                initialRouteName="App"
+                initialRouteName="EditUser"
             >
                 <Stack.Screen name="App" component={BottomTab} />
                 {/* Auth */}
@@ -72,9 +72,9 @@ const Router = () => {
                 <Stack.Screen name="Verify" component={Verify} />
 
                 {/* Screens */}
-                {/* <Stack.Screen name="Home" component={Home} /> */}
+                <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Welcome" component={Welcome} />
-                {/* <Stack.Screen name="User" component={User} /> */}
+                <Stack.Screen name="User" component={User} />
                 <Stack.Screen name="EditUser" component={EditUser} />
             </Stack.Navigator>
         </NavigationContainer>

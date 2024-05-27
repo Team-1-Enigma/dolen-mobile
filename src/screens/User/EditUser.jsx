@@ -20,7 +20,7 @@ const userProfileSchema = yup.object({
     phoneNumber: yup.number().required("Phone number is Required"),
     email: yup.string().email("Invalid Email").required("Email is Required"),
     gender: yup.string().required("Gender is Required"),
-    birthDate: yup.date(),
+    birthDate: yup.string().required("Date is Required"),
     address: yup.string().required("Address is Required"),
 });
 
@@ -28,7 +28,10 @@ const EditUser = () => {
     const navigation = useNavigation();
     const {
         control,
-        // handleSubmit,
+        handleSubmit,
+        getValues,
+        getFieldState,
+        formState: { errors },
     } = useForm({
         defaultValues: {
             gender: "",
@@ -37,6 +40,25 @@ const EditUser = () => {
         },
         resolver: yupResolver(userProfileSchema),
     });
+
+    const onSubmit = () => {
+        console.log("Debug Form", {
+            "getValues()": getValues(),
+            "getFieldState('email')": getFieldState("email"),
+        });
+        const { fullName, phoneNumber, email, gender, birthDate, address } =
+            getValues();
+        // @ts-ignore
+        navigation.navigate("User", {
+            fullName,
+            phoneNumber,
+            email,
+            gender,
+            birthDate,
+            address,
+            isFromLogin: true,
+        });
+    };
 
     const toProfile = () => {
         navigation.navigate("User");
@@ -89,7 +111,7 @@ const EditUser = () => {
                                     backgroundColor: "black",
                                     borderRadius: 100,
                                     marginTop: 70,
-                                    marginLeft: 65
+                                    marginLeft: 65,
                                 }}
                                 size={20}
                                 name="camera-outline"
@@ -152,86 +174,103 @@ const EditUser = () => {
                         name="fullName"
                     />
                 </YStack>
+                {errors.fullName && (
+                    <Text style={{ marginTop: 5, color: "red", marginLeft: 5 }}>
+                        {errors.fullName.message}
+                    </Text>
+                )}
 
                 {/* Gender and Birthday */}
-                <YStack
+                <XStack
                     style={{
                         display: "flex",
                         flexDirection: "row",
                         gap: 15,
                     }}
                 >
-                    <YStack
-                        style={{
-                            borderWidth: 0.5,
-                            borderColor: "gray",
-                            marginTop: 20,
-                            paddingVertical: 5,
-                            paddingHorizontal: 15,
-                            borderRadius: 20,
-                            width: "48%",
-                        }}
-                    >
-                        <Label style={{ color: "grey" }}>Gender</Label>
-                        <Controller
-                            control={control}
-                            rules={{
-                                required: true,
+                    <YStack width={"48%"}>
+                        <YStack
+                            style={{
+                                borderWidth: 0.5,
+                                borderColor: "gray",
+                                marginTop: 20,
+                                paddingVertical: 5,
+                                paddingHorizontal: 15,
+                                borderRadius: 20,
                             }}
-                            render={({
-                                field: { onChange, onBlur, value },
-                            }) => (
-                                <TextInput
-                                    editable
-                                    multiline
-                                    numberOfLines={1.5}
-                                    size={16}
-                                    placeholder={`Input your gender`}
-                                    onBlur={onBlur}
-                                    onChangeText={onChange}
-                                    value={value}
-                                    marginTop={-8}
-                                />
-                            )}
-                            name="gender"
-                        />
+                        >
+                            <Label style={{ color: "grey" }}>Gender</Label>
+                            <Controller
+                                control={control}
+                                rules={{
+                                    required: true,
+                                }}
+                                render={({
+                                    field: { onChange, onBlur, value },
+                                }) => (
+                                    <TextInput
+                                        editable
+                                        multiline
+                                        numberOfLines={1.5}
+                                        size={16}
+                                        placeholder={`Input your gender`}
+                                        onBlur={onBlur}
+                                        onChangeText={onChange}
+                                        value={value}
+                                        marginTop={-8}
+                                    />
+                                )}
+                                name="gender"
+                            />
+                        </YStack>
+                        {errors.gender && (
+                            <Text style={{ marginTop: 4, marginLeft: 5, color: "red" }}>
+                                {errors.gender.message}
+                            </Text>
+                        )}
                     </YStack>
-                    <YStack
-                        style={{
-                            borderWidth: 0.5,
-                            borderColor: "gray",
-                            marginTop: 20,
-                            paddingVertical: 5,
-                            paddingHorizontal: 15,
-                            borderRadius: 20,
-                            width: "48%",
-                        }}
-                    >
-                        <Label style={{ color: "grey" }}>Birthday</Label>
-                        <Controller
-                            control={control}
-                            rules={{
-                                required: true,
+                    <YStack width={"48%"}>
+                        <YStack
+                            style={{
+                                borderWidth: 0.5,
+                                borderColor: "gray",
+                                marginTop: 20,
+                                paddingVertical: 5,
+                                paddingHorizontal: 15,
+                                borderRadius: 20,
                             }}
-                            render={({
-                                field: { onChange, onBlur, value },
-                            }) => (
-                                <TextInput
-                                    editable
-                                    multiline
-                                    numberOfLines={1.5}
-                                    size={16}
-                                    placeholder={`Input your birthday`}
-                                    onBlur={onBlur}
-                                    onChangeText={onChange}
-                                    value={value}
-                                    marginTop={-8}
-                                />
+                        >
+                            <Label style={{ color: "grey" }}>Birthday</Label>
+                            <Controller
+                                control={control}
+                                rules={{
+                                    required: true,
+                                }}
+                                render={({
+                                    field: { onChange, onBlur, value },
+                                }) => (
+                                    <TextInput
+                                        editable
+                                        multiline
+                                        numberOfLines={1.5}
+                                        size={16}
+                                        placeholder={`Input your birthday`}
+                                        onBlur={onBlur}
+                                        onChangeText={onChange}
+                                        value={value}
+                                        marginTop={-8}
+                                    />
+                                )}
+                                name="birthDate"
+                            />
+                        </YStack>
+                            {errors.birthDate && (
+                                <Text style={{ marginTop: 5, marginLeft: 4, color: "red" }}>
+                                    {errors.birthDate.message}
+                                </Text>
                             )}
-                            name="fullName"
-                        />
                     </YStack>
-                </YStack>
+                </XStack>
 
                 {/* Phone number */}
                 <YStack
@@ -261,11 +300,18 @@ const EditUser = () => {
                                 onChangeText={onChange}
                                 value={value}
                                 marginTop={-8}
+                                keyboardType="numeric"
+                                maxLength={13}
                             />
                         )}
                         name="phoneNumber"
                     />
                 </YStack>
+                    {errors.phoneNumber && (
+                        <Text style={{ marginTop: 5, marginLeft: 4, color: "red" }}>
+                            {errors.phoneNumber.message}
+                        </Text>
+                    )}
 
                 {/* Email */}
                 <YStack
@@ -300,6 +346,11 @@ const EditUser = () => {
                         name="email"
                     />
                 </YStack>
+                    {errors.email && (
+                        <Text style={{ marginTop: 5, marginLeft: 4, color: "red" }}>
+                            {errors.email.message}
+                        </Text>
+                    )}
 
                 {/* Address */}
                 <YStack
@@ -334,6 +385,11 @@ const EditUser = () => {
                         name="address"
                     />
                 </YStack>
+                    {errors.address && (
+                        <Text style={{ marginTop: 5, marginLeft: 4, color: "red" }}>
+                            {errors.address.message}
+                        </Text>
+                    )}
 
                 <Button
                     marginTop={20}
@@ -341,6 +397,7 @@ const EditUser = () => {
                     width={"100%"}
                     backgroundColor={"#07C9F0"}
                     color={"white"}
+                    onPress={handleSubmit(onSubmit)}
                 >
                     Save
                 </Button>
