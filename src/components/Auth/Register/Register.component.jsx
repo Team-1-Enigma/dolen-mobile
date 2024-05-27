@@ -63,10 +63,11 @@ const Register = () => {
 
     return (
         <ScrollView
+            marginVertical={10}
             alignItems="center"
             justifyContent={"center"}
             padding={20}
-            width={"100%"}
+            width={"auto"}
         >
             <YStack
                 flex={1}
@@ -293,9 +294,6 @@ const Register = () => {
                 >
                     Register
                 </Button>
-                <Text color={"grey"} marginTop={10}>
-                    Enjoy your day!
-                </Text>
             </YStack>
         </ScrollView>
     );

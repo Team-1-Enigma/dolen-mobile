@@ -10,8 +10,10 @@ import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 // icons
 import Octicons from "@expo/vector-icons/Octicons";
 import Welcome from "../screens/Welcome";
+import User from "../screens/User/User";
+import EditUser from "../screens/User/EditUser";
 
-const Stack = createNativeStackNavigator(); 
+const Stack = createNativeStackNavigator();
 const Tabs = AnimatedTabBarNavigator();
 
 const BottomTab = () => (
@@ -38,13 +40,13 @@ const BottomTab = () => (
                 ),
             }}
         />
-                <Tabs.Screen
-            name="Login"
-            component={Login}
+        <Tabs.Screen
+            name="User"
+            component={User}
             options={{
                 tabBarIcon: ({ focus, color, size }) => (
                     <Octicons
-                        name="mail"
+                        name="person"
                         size={24}
                         color={!focus ? color : "#07C9F0"}
                     />
@@ -54,7 +56,6 @@ const BottomTab = () => (
     </Tabs.Navigator>
 );
 
-
 const Router = () => {
     return (
         <NavigationContainer>
@@ -62,7 +63,7 @@ const Router = () => {
                 screenOptions={{
                     headerShown: false,
                 }}
-                initialRouteName="Login"
+                initialRouteName="App"
             >
                 <Stack.Screen name="App" component={BottomTab} />
                 {/* Auth */}
@@ -71,8 +72,10 @@ const Router = () => {
                 <Stack.Screen name="Verify" component={Verify} />
 
                 {/* Screens */}
-                <Stack.Screen name="Home" component={Home} />
+                {/* <Stack.Screen name="Home" component={Home} /> */}
                 <Stack.Screen name="Welcome" component={Welcome} />
+                {/* <Stack.Screen name="User" component={User} /> */}
+                <Stack.Screen name="EditUser" component={EditUser} />
             </Stack.Navigator>
         </NavigationContainer>
     );
