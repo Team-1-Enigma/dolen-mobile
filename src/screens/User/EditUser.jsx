@@ -28,7 +28,10 @@ const EditUser = () => {
     const navigation = useNavigation();
     const {
         control,
-        // handleSubmit,
+        handleSubmit,
+        getValues,
+        getFieldState,
+        formState: { errors },
     } = useForm({
         defaultValues: {
             gender: "",
@@ -37,6 +40,25 @@ const EditUser = () => {
         },
         resolver: yupResolver(userProfileSchema),
     });
+
+    const onSubmit = () => {
+        console.log("Debug Form", {
+            "getValues()": getValues(),
+            "getFieldState('email')": getFieldState("email"),
+        });
+        const { fullName, phoneNumber, email, gender, birthDate, address } =
+            getValues();
+        // @ts-ignore
+        navigation.navigate("User", {
+            fullName,
+            phoneNumber,
+            email,
+            gender,
+            birthDate,
+            address,
+            isFromLogin: true,
+        });
+    };
 
     const toProfile = () => {
         navigation.navigate("User");
@@ -89,7 +111,7 @@ const EditUser = () => {
                                     backgroundColor: "black",
                                     borderRadius: 100,
                                     marginTop: 70,
-                                    marginLeft: 65
+                                    marginLeft: 65,
                                 }}
                                 size={20}
                                 name="camera-outline"
@@ -151,6 +173,11 @@ const EditUser = () => {
                         )}
                         name="fullName"
                     />
+                    {errors.fullName && (
+                        <Text marginTop={1} color={"red"}>
+                            {errors.fullName.message}
+                        </Text>
+                    )}
                 </YStack>
 
                 {/* Gender and Birthday */}
@@ -195,6 +222,11 @@ const EditUser = () => {
                             )}
                             name="gender"
                         />
+                        {errors.gender && (
+                            <Text marginTop={1} color={"red"}>
+                                {errors.gender.message}
+                            </Text>
+                        )}
                     </YStack>
                     <YStack
                         style={{
@@ -228,8 +260,13 @@ const EditUser = () => {
                                     marginTop={-8}
                                 />
                             )}
-                            name="fullName"
+                            name="birthDate"
                         />
+                        {errors.birthDate && (
+                            <Text marginTop={1} color={"red"}>
+                                {errors.birthDate.message}
+                            </Text>
+                        )}
                     </YStack>
                 </YStack>
 
@@ -261,10 +298,17 @@ const EditUser = () => {
                                 onChangeText={onChange}
                                 value={value}
                                 marginTop={-8}
+                                keyboardType="numeric"
+                                maxLength={13}
                             />
                         )}
                         name="phoneNumber"
                     />
+                    {errors.phoneNumber && (
+                        <Text marginTop={1} color={"red"}>
+                            {errors.phoneNumber.message}
+                        </Text>
+                    )}
                 </YStack>
 
                 {/* Email */}
@@ -299,6 +343,11 @@ const EditUser = () => {
                         )}
                         name="email"
                     />
+                    {errors.email && (
+                        <Text marginTop={1} color={"red"}>
+                            {errors.email.message}
+                        </Text>
+                    )}
                 </YStack>
 
                 {/* Address */}
@@ -327,12 +376,17 @@ const EditUser = () => {
                                 placeholder={`Input address here`}
                                 onBlur={onBlur}
                                 onChangeText={onChange}
-                                value={value}
+                                value={value}   
                                 marginTop={-8}
                             />
                         )}
                         name="address"
                     />
+                    {errors.address && (
+                        <Text marginTop={1} color={"red"}>
+                            {errors.address.message}
+                        </Text>
+                    )}
                 </YStack>
 
                 <Button
@@ -341,6 +395,7 @@ const EditUser = () => {
                     width={"100%"}
                     backgroundColor={"#07C9F0"}
                     color={"white"}
+                    onPress={handleSubmit(onSubmit)}
                 >
                     Save
                 </Button>

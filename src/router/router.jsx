@@ -63,7 +63,7 @@ const Router = () => {
                 screenOptions={{
                     headerShown: false,
                 }}
-                initialRouteName="EditUser"
+                initialRouteName="User"
             >
                 <Stack.Screen name="App" component={BottomTab} />
                 {/* Auth */}
