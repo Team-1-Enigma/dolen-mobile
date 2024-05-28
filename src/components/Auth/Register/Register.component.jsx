@@ -52,16 +52,6 @@ const Register = () => {
         });
     };
 
-<<<<<<< HEAD
-    const onSubmit = () => {
-        console.log("Debug Form", {
-            "getValues()": getValues(),
-            "getFieldState('email')": getFieldState("email"),
-        });
-        const { fullName, phoneNumber, email, password } = getValues();
-        // @ts-ignore
-        navigation.navigate("Verify", { fullName, phoneNumber, email, password, isFromLogin: true });
-=======
     const onSubmit = async (data) => {
         console.log("Data from form: ", data);
         try {
@@ -78,7 +68,6 @@ const Register = () => {
             console.log(error);
             setError(true);
         }
->>>>>>> 6c5424f009e2474ab089ab3e9611e06a9d50a50c
     };
 
     return (

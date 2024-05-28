@@ -4,10 +4,21 @@ import { H2, H3, H4, H5, H6, Image, ScrollView, XStack, YStack } from "tamagui";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import images from "../../../assets/images";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { userAction } from "../../app/Features/auth/UserSlice";
 // import { useNavigation } from "@react-navigation/native";
 
 const Home = () => {
     const navigation = useNavigation()
+
+    const dispatch = useDispatch();
+    const { user, status, error } = useSelector((state) => state.user);
+
+    useEffect(() => {
+        dispatch(userAction());
+      }, [dispatch]);
+
 
     const toTravel = () => {
         navigation.navigate("Travel")
@@ -113,7 +124,7 @@ const Home = () => {
     const TravelList = () => {
         return (
             <XStack gap={10}>
-                <YStack backgroundColor={"white"} padding={5} borderRadius={10}>
+                <YStack backgroundColor={"white"} padding={5} margin={10} borderRadius={10}>
                     <Image
                         style={{
                             height: 200,
@@ -176,136 +187,21 @@ const Home = () => {
                     </XStack>
                 </YStack>
 
-                <YStack backgroundColor={"white"} padding={5} borderRadius={10}>
-                    <Image
-                        style={{
-                            height: 200,
-                            width: 170,
-                            borderRadius: 10,
-                        }}
-                        source={images.login}
-                    />
-                    <XStack
-                        flexDirection="column"
-                        gap={5}
-                        width={170}
-                        padding={5}
-                    >
-                        <H5 fontWeight={700} color={"black"}>
-                            Darussalam
-                        </H5>
-
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                marginTop: 4,
-                                gap: 4,
-                            }}
-                        >
-                            <MaterialCommunityIcons
-                                style={{
-                                    color: "red",
-                                    marginLeft: -4,
-                                }}
-                                size={15}
-                                name="phone"
-                            />
-                            <Text style={{ color: "gray" }}>081232342324</Text>
-                        </View>
-
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                marginTop: 4,
-                                gap: 4,
-                            }}
-                        >
-                            <MaterialCommunityIcons
-                                style={{
-                                    color: "red",
-                                    marginLeft: -4,
-                                }}
-                                size={15}
-                                name="map-marker"
-                            />
-                            <Text
-                                style={{
-                                    color: "gray",
-                                }}
-                            >
-                                Malang, Jawa Timur
-                            </Text>
-                        </View>
-                    </XStack>
-                </YStack>
-
-                <YStack backgroundColor={"white"} padding={5} borderRadius={10}>
-                    <Image
-                        style={{
-                            height: 200,
-                            width: 170,
-                            borderRadius: 10,
-                        }}
-                        source={images.login}
-                    />
-                    <XStack
-                        flexDirection="column"
-                        gap={5}
-                        width={170}
-                        padding={5}
-                    >
-                        <H5 fontWeight={700} color={"black"}>
-                            Darussalam
-                        </H5>
-
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                marginTop: 4,
-                                gap: 4,
-                            }}
-                        >
-                            <MaterialCommunityIcons
-                                style={{
-                                    color: "red",
-                                    marginLeft: -4,
-                                }}
-                                size={15}
-                                name="phone"
-                            />
-                            <Text style={{ color: "gray" }}>081232342324</Text>
-                        </View>
-
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                marginTop: 4,
-                                gap: 4,
-                            }}
-                        >
-                            <MaterialCommunityIcons
-                                style={{
-                                    color: "red",
-                                    marginLeft: -4,
-                                }}
-                                size={15}
-                                name="map-marker"
-                            />
-                            <Text
-                                style={{
-                                    color: "gray",
-                                }}
-                            >
-                                Malang, Jawa Timur
-                            </Text>
-                        </View>
-                    </XStack>
-                </YStack>
+                
             </XStack>
         );
     };
 
     const homePageView = () => {
+        if (status === 'loading') {
+            return <Text>Loading...</Text>; // Or render a loading indicator
+        }
+    
+        // Check for error while fetching user data
+        if (status === 'failed') {
+            return <Text>Error: {error}</Text>; // Or handle error state appropriately
+        }
+        
         return (
             <>
                 <View
@@ -328,10 +224,11 @@ const Home = () => {
                         />
                         <YStack>
                             <Text style={{ color: "white" }}>Welcome</Text>
-                            <H3 color={"white"}>Jonathan</H3>
+                            <H3 color={"white"}>{user ? user.fullName : 'Guest'}</H3>
+                            {/* Use 'Guest' or a default value if user is null */}
                         </YStack>
                     </XStack>
-
+    
                     <View>
                         <Image
                             style={{
@@ -342,7 +239,7 @@ const Home = () => {
                             source={images.bromo}
                         />
                     </View>
-
+    
                     {/* Button */}
                     <XStack
                         paddingVertical={20}
@@ -395,7 +292,7 @@ const Home = () => {
                             <H6 fontWeight={800}>Profile</H6>
                         </YStack>
                     </XStack>
-
+    
                     {/* Trip List */}
                     <View
                         style={{
@@ -437,7 +334,7 @@ const Home = () => {
                             horizontal
                         />
                     </View>
-
+    
                     {/* Travel List */}
                     <View
                         style={{
@@ -474,7 +371,7 @@ const Home = () => {
                     <View style={{ paddingVertical: 10, gap: 10 }}>
                         <H4 marginLeft={5}>Most Popular Travel</H4>
                         <FlatList
-                            data={[{}]}
+                            data={[{}, {},{}, {},{}]}
                             renderItem={TravelList}
                             horizontal
                         />
@@ -483,6 +380,7 @@ const Home = () => {
             </>
         );
     };
+    
     return <FlatList data={[{}]} renderItem={homePageView} />;
 };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FlatList, Text, TouchableOpacity } from "react-native";
 import {
     Button,
@@ -15,9 +15,18 @@ import {
 import images from "../../../assets/images";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { userAction } from "../../app/Features/auth/UserSlice";
+import { useState } from "react";
 
 const User = () => {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
+    const { user, status, error } = useSelector((state) => state.user);
+
+    useEffect(() => {
+        dispatch(userAction());
+      }, [dispatch]);
 
     const toHomepage = () => {
         navigation.navigate("Home");
@@ -27,6 +36,7 @@ const User = () => {
     };
 
     const UserPage = () => {
+        const userData = JSON.stringify(user)
         return (
             <>
                 <YStack alignItems="start" justifyContent="center" padding={20}>
@@ -45,20 +55,20 @@ const User = () => {
                                     width: "100%",
                                     borderRadius: 100,
                                 }}
-                                source={images.profile}
+                                source={user.photoUrl  == null? images.profile : user.photoUrl}
                             />
                         </XStack>
                     </YStack>
 
                     <YStack marginTop={10} alignItems="center" gap={5}>
-                        <H3>Mohammad Adib</H3>
+                        <H3>{user.fullName}</H3>
                         <Text
                             style={{
                                 fontSize: 16,
                                 color: "grey",
                             }}
                         >
-                            @mohammad.adib
+                            {user.email}
                         </Text>
                         <Button
                             marginTop={15}

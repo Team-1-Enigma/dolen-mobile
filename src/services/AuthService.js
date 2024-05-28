@@ -9,7 +9,10 @@ export const AuthService = () => {
         if (response.status == 200) {
             const token = response.data.data.token;
             console.log("token: ", token);
-            await AsyncStorage.setItem("token: ", token);
+            await AsyncStorage.setItem("token", token);
+            await AsyncStorage.setItem("userId", response.data.data.credentialId)
+            
+           
             return response.data.data;
         } else {
             throw new Error("Unexpected response status: " + response.status);
