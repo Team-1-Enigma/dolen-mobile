@@ -1,7 +1,5 @@
 import React from "react";
-import { TouchableOpacity } from "react-native";
 import { H2, H5, Image, XStack, YStack } from "tamagui";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import images from "../../../assets/images";
 
 const Header = () => {

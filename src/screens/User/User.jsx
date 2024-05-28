@@ -29,7 +29,7 @@ const User = () => {
       }, [dispatch]);
 
     const toHomepage = () => {
-        navigation.navigate("Home");
+        navigation.navigate("App");
     };
     const toEditpage = () => {
         navigation.navigate("EditUser");
@@ -39,7 +39,7 @@ const User = () => {
         const userData = JSON.stringify(user)
         return (
             <>
-                <YStack alignItems="start" justifyContent="center" padding={20}>
+                <YStack alignItems="start" justifyContent="center" padding={20} marginTop={25}>
                     <XStack
                         marginTop={10}
                         justifyContent="center"
