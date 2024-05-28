@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FlatList, Text, TouchableOpacity } from "react-native";
 import {
     Button,
@@ -15,9 +15,17 @@ import {
 import images from "../../../assets/images";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from 'react-redux';
+import { userService } from "../../services/UserService";
+import { userAction } from "../../app/Features/user/userSlice";
 
 const User = () => {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        dispatch(userAction())
+    })
 
     const toHomepage = () => {
         navigation.navigate("Home");
