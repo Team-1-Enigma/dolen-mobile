@@ -1,6 +1,6 @@
 import React from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
-import { H2, H3, H4, H5, H6, Image, ScrollView, XStack, YStack } from "tamagui";
+import { H2, H3, H4, H5, H6, ScrollView, XStack, YStack } from "tamagui";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import images from "../../../assets/images";
 import { useNavigation } from "@react-navigation/native";
@@ -8,16 +8,20 @@ import Header from "../../components/layout/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { userAction } from "../../app/Features/auth/UserSlice";
+import { fetchTravels } from "../../app/Features/travel/TravelSlice";
 // import { useNavigation } from "@react-navigation/native";
+import { Image } from "react-native";
 
 const Home = () => {
     const navigation = useNavigation()
 
     const dispatch = useDispatch();
     const { user, status, error } = useSelector((state) => state.user);
+    const travels = useSelector((state) => state.travel.travels);
 
     useEffect(() => {
         dispatch(userAction());
+        dispatch(fetchTravels())
       }, [dispatch]);
 
 
@@ -122,7 +126,8 @@ const Home = () => {
         );
     };
 
-    const TravelList = () => {
+    const TravelList = ({item}) => {
+        console.log(item.imageTravelResponseList[1].imageUrl)
         return (
             <XStack gap={10}>
                 <YStack backgroundColor={"white"} padding={5} margin={10} borderRadius={10}>
@@ -131,8 +136,9 @@ const Home = () => {
                             height: 200,
                             width: 170,
                             borderRadius: 10,
-                        }}
-                        source={images.login}
+                            aspectRatio:1
+                       }}
+                       source={{ uri: item.imageTravelResponseList[0].imageUrl }}
                     />
                     <XStack
                         flexDirection="column"
@@ -141,7 +147,7 @@ const Home = () => {
                         padding={5}
                     >
                         <H5 fontWeight={700} color={"black"}>
-                            Darussalam
+                            {item.name}
                         </H5>
 
                         <View
@@ -159,7 +165,7 @@ const Home = () => {
                                 size={15}
                                 name="phone"
                             />
-                            <Text style={{ color: "gray" }}>081232342324</Text>
+                            <Text style={{ color: "gray" }}>{item.contactInfo}</Text>
                         </View>
 
                         <View
@@ -182,7 +188,7 @@ const Home = () => {
                                     color: "gray",
                                 }}
                             >
-                                Malang, Jawa Timur
+                                {item.address}
                             </Text>
                         </View>
                     </XStack>
@@ -194,6 +200,7 @@ const Home = () => {
     };
 
     const homePageView = () => {
+
         if (status === 'loading') {
             return <Text>Loading...</Text>; // Or render a loading indicator
         }
@@ -373,7 +380,7 @@ const Home = () => {
                     <View style={{ paddingVertical: 10, gap: 10 }}>
                         <H4 marginLeft={5}>Most Popular Travel</H4>
                         <FlatList
-                            data={[{}, {},{}, {},{}]}
+                            data={travels}
                             renderItem={TravelList}
                             horizontal
                         />

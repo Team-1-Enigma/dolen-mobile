@@ -11,11 +11,10 @@ const initialState = {
   
 export const userAction = createAsyncThunk(
     "user/get",
-    async (payload, thunkAPI) =>{
+    async () =>{
         
         const response = await getData();
         if(response){
-            console.log(`INI DI USER ACTION ${JSON.stringify(response)}`);
             return response;
         }else{
             throw new Error("Invalid response");
