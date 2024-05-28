@@ -10,8 +10,19 @@ import { H3, H4, H5, Image, XStack, YStack, Button } from "tamagui";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import images from "../../../assets/images";
 import TripList from "./components/TripList";
+import { useNavigation } from "@react-navigation/native";
 
 const Trip = () => {
+    const navigation = useNavigation()
+
+    const backToHome = () => {
+        navigation.navigate("App")
+    }
+
+    const createTrip = () => {
+        navigation.navigate("CreateTrip")
+    }
+
     const TripPage = () => {
         return (
             <>
@@ -46,7 +57,7 @@ const Trip = () => {
                     /> */}
 
                         <TouchableOpacity>
-                            <Button backgroundColor={"#07C9F0"} color={"white"}>
+                            <Button backgroundColor={"#07C9F0"} color={"white"} onPress={createTrip}>
                                 <MaterialCommunityIcons
                                     style={{
                                         color: "white",

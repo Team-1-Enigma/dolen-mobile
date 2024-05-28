@@ -13,6 +13,7 @@ import Welcome from "../screens/Welcome";
 import Travel from "../screens/Travel/Travel";
 import Trip from "../screens/Trip/Trip";
 import TripDetails from "../screens/Trip/TripDetails";
+import CreateTrip from "../screens/Trip/CreateTrip";
 
 const Stack = createNativeStackNavigator(); 
 const Tabs = AnimatedTabBarNavigator();
@@ -81,6 +82,7 @@ const Router = () => {
                 
                 <Stack.Screen name="Trip" component={Trip} />
                 <Stack.Screen name="TripDetails" component={TripDetails} />
+                <Stack.Screen name="CreateTrip" component={CreateTrip} />
             </Stack.Navigator>
         </NavigationContainer>
     );

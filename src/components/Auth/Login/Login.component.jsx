@@ -5,7 +5,6 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 // alternativenya adalah formik
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-// alternativenya adalah zod
 import * as yup from "yup";
 
 import images from "../../../../assets/images";
