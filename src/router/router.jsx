@@ -17,6 +17,7 @@ import TravelDetails from "../screens/Travel/TravelDetails";
 import TravelReview from "../screens/Travel/components/TravelReview";
 import Trip from "../screens/Trip/Trip";
 import TripDetails from "../screens/Trip/TripDetails";
+import CreateTrip from "../screens/Trip/CreateTrip";
 
 // icons
 import Octicons from "@expo/vector-icons/Octicons";
@@ -106,6 +107,7 @@ const Router = () => {
         <Stack.Screen name="TravelReview" component={TravelReview} />
         <Stack.Screen name="Trip" component={Trip} />
         <Stack.Screen name="TripDetails" component={TripDetails} />
+        <Stack.Screen name="CreateTrip" component={CreateTrip} />
       </Stack.Navigator>
     </NavigationContainer>
   );

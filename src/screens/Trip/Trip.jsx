@@ -11,15 +11,18 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import images from "../../../assets/images";
 import TripList from "./components/TripList";
 import { useNavigation } from "@react-navigation/native";
-import Header from "../../components/layout/Header";
 
 const Trip = () => {
+    const navigation = useNavigation()
 
-        const navigation = useNavigation()
+    const backToHome = () => {
+        navigation.navigate("App")
+    }
 
-        const toHomepage = () => {
-            navigation.navigate("App")
-        }
+    const createTrip = () => {
+        navigation.navigate("CreateTrip")
+    }
+
     const TripPage = () => {
         return (
             <>
@@ -55,7 +58,7 @@ const Trip = () => {
                     /> */}
 
                         <TouchableOpacity>
-                            <Button backgroundColor={"#07C9F0"} color={"white"}>
+                            <Button backgroundColor={"#07C9F0"} color={"white"} onPress={createTrip}>
                                 <MaterialCommunityIcons
                                     style={{
                                         color: "white",
