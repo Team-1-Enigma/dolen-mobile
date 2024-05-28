@@ -10,6 +10,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import images from "../../../assets/images";
 import { useNavigation } from "@react-navigation/native";
 import TravelList from "./components/TravelList";
+import Header from "../../components/layout/Header";
 
 const Travel = () => {
     const navigation = useNavigation();
@@ -19,6 +20,7 @@ const Travel = () => {
     const TravelPage = () => {
         return (
             <>
+                <Header />
                 <YStack
                     flex={1}
                     justifyContent="center"

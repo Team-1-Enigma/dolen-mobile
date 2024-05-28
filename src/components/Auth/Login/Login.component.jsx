@@ -47,16 +47,6 @@ const Login = () => {
         });
     };
 
-<<<<<<< HEAD
-    const onSubmit = () => {
-        console.log("Debug Form", {
-            "getValues()": getValues(),
-            "getFieldState('email')": getFieldState("email"),
-        });
-        const { email, password } = getValues();
-        // @ts-ignore
-        navigation.navigate("Welcome", { email, password, isFromLogin: true });
-=======
     const onSubmit = async (data) => {
         console.log("Data from form", data);
         try {
@@ -74,7 +64,6 @@ const Login = () => {
             console.log(error)
             setError(true)
         }
->>>>>>> 6c5424f009e2474ab089ab3e9611e06a9d50a50c
     };
 
     const toRegistration = () => {

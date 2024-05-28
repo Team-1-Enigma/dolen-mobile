@@ -11,17 +11,19 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import images from "../../../assets/images";
 import TripList from "./components/TripList";
 import { useNavigation } from "@react-navigation/native";
+import Header from "../../components/layout/Header";
 
 const Trip = () => {
 
         const navigation = useNavigation()
 
         const toHomepage = () => {
-            navigation.navigate("Home")
+            navigation.navigate("App")
         }
     const TripPage = () => {
         return (
             <>
+                <Header />
                 <YStack justifyContent="center" alignItems="start" padding={15}>
                     <XStack
                         width={"100%"}

@@ -8,6 +8,7 @@ import { useFonts } from "expo-font";
 import { useCallback } from "react";
 import { Provider } from "react-redux";
 import store from "./src/app/store";
+import { View } from "react-native";
 
 const tamaguiConfig = createTamagui(config);
 
@@ -42,11 +43,3 @@ export default function App() {
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "center",
-    },
-});

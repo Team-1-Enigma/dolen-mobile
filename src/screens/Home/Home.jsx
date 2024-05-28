@@ -4,6 +4,7 @@ import { H2, H3, H4, H5, H6, Image, ScrollView, XStack, YStack } from "tamagui";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import images from "../../../assets/images";
 import { useNavigation } from "@react-navigation/native";
+import Header from "../../components/layout/Header";
 // import { useNavigation } from "@react-navigation/native";
 
 const Home = () => {
@@ -308,6 +309,7 @@ const Home = () => {
     const homePageView = () => {
         return (
             <>
+                <Header />
                 <View
                     style={{
                         backgroundColor: "#07C9F0",
