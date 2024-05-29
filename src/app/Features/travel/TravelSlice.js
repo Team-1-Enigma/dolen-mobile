@@ -2,13 +2,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { TravelService } from "../../../services/TravelService";
 
-const {getTravels, getTravelById} = TravelService()
+const {getTravels, getTravelById, getTravelDataByUserId} = TravelService()
 
 const initialState = {
   travels: [],
   travelDetail: null,
   loading: false,
   error: null,
+  travelDetailFromUser : null
 };
 
 export const fetchTravels = createAsyncThunk(
@@ -23,6 +24,19 @@ export const fetchTravels = createAsyncThunk(
     }
   }
 );
+
+export const getTravelDataByUserIdAction = createAsyncThunk(
+  "travel/user/data",
+  async (userId) => {
+    try {
+      const response = await getTravelDataByUserId(userId);
+      return response;
+    } catch (error) {
+        console.log(`Type erro ${error}`)
+      throw new Error("Failed to fetch travels");
+    }
+  }
+)
 
 
 export const fetchTravelById = createAsyncThunk(
@@ -65,6 +79,18 @@ const travelSlice = createSlice({
         state.travelDetail = action.payload;
       })
       .addCase(fetchTravelById.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(getTravelDataByUserIdAction.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getTravelDataByUserIdAction.fulfilled, (state, action) => {
+        state.loading = false;
+        state.travelDetailFromUser = action.payload;
+      })
+      .addCase(getTravelDataByUserIdAction.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });

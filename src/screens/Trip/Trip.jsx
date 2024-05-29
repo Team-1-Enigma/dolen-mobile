@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getAllTripAction } from "../../app/Features/trip/TripSlice";
 import { useSelector } from "react-redux";
+import Header from "../../components/layout/Header"
 
 const Trip = () => {
     const navigation = useNavigation()

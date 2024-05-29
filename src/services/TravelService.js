@@ -14,5 +14,11 @@ export const TravelService = () =>{
         return response.data.data;
     }
 
-    return {getTravels, getTravelById};
+    const getTravelDataByUserId = async(userId) =>{
+        const response = await axiosInstance.get(`travels/user/${userId}`)
+
+        return response.data.data;
+    }
+
+    return {getTravels, getTravelById, getTravelDataByUserId};
 }

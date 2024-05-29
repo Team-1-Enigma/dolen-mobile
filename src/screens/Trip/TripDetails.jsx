@@ -69,6 +69,9 @@ const TripDetails = () => {
         navigation.navigate("Trip");
     };
 
+    const toOrder = () =>{
+        navigation.navigate("Order")
+    }
     // Conditionally render content based on loading state and data availability
     if (loading) {
         return (
@@ -195,7 +198,7 @@ const TripDetails = () => {
                             </View>
                             <Text>One time entry</Text>
                         </View>
-                        <Button backgroundColor={"#07C9F0"} color={"white"} paddingHorizontal={35}>
+                        <Button onPress={toOrder} backgroundColor={"#07C9F0"} color={"white"} paddingHorizontal={35}>
                             Order
                         </Button>
                     </View>
@@ -204,7 +207,7 @@ const TripDetails = () => {
         );
     };
 
-    return <FlatList data={[{}]} renderItem={TripDetailPage} />;
+    return <FlatList data={[{}]} renderItem={TripDetailPage}/>;
 };
 
 const styles = StyleSheet.create({

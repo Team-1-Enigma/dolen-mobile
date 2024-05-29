@@ -21,6 +21,10 @@ import CreateTrip from "../screens/Trip/CreateTrip";
 
 // icons
 import Octicons from "@expo/vector-icons/Octicons";
+import Order from "../screens/Order/Order"
+import OrderConfirmation from "../screens/Order/OrderConfirmation";
+import OrdersList from "../screens/Order/MyOrder";
+import TravelManagementPage from "../screens/Travel/TravelManagement";
 
 const Stack = createNativeStackNavigator();
 const Tabs = AnimatedTabBarNavigator();
@@ -45,6 +49,15 @@ const BottomTab = () => (
         ),
       }}
     />
+    {/* <Tabs.Screen
+      name="Order"
+      component={Order}
+      options={{
+        tabBarIcon: ({ focused, color, size }) => (
+          <Octicons name="person" size={24} color={!focused ? color : "#07C9F0"} />
+        ),
+      }}
+    /> */}
     <Tabs.Screen
       name="User"
       component={User}
@@ -108,6 +121,10 @@ const Router = () => {
         <Stack.Screen name="Trip" component={Trip} />
         <Stack.Screen name="TripDetails" component={TripDetails} />
         <Stack.Screen name="CreateTrip" component={CreateTrip} />
+        <Stack.Screen name="Order" component={Order}/>
+        <Stack.Screen name="OrderConfirmation" component={OrderConfirmation}/>
+        <Stack.Screen name="MyOrderList" component={OrdersList}/>
+        <Stack.Screen name="TravelManagement" component={TravelManagementPage}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -18,6 +18,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { userAction } from "../../app/Features/auth/UserSlice";
 import { useState } from "react";
+import { getTravelDataByUserIdAction } from "../../app/Features/travel/TravelSlice";
 
 const User = () => {
     const navigation = useNavigation();
@@ -26,6 +27,8 @@ const User = () => {
 
     useEffect(() => {
         dispatch(userAction());
+        dispatch(getTravelDataByUserIdAction(user.userCredential))
+
       }, [dispatch]);
 
     const toHomepage = () => {
@@ -35,8 +38,16 @@ const User = () => {
         navigation.navigate("EditUser");
     };
 
+    const toOrderList = () =>{
+        navigation.navigate("MyOrderList")
+    }
+
+    const toTravelManagement = () =>{
+        navigation.navigate("TravelManagement",{userCredential : user.credentialId})
+    }
     const UserPage = () => {
         const userData = JSON.stringify(user)
+        console.log(`user role ${user.credentialId}`)
         return (
             <>
                 <YStack alignItems="start" justifyContent="center" padding={20} marginTop={25}>
@@ -93,7 +104,7 @@ const User = () => {
                     ></View>
 
                     <YStack marginVertical={15} gap={5}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={toOrderList}>
                             <YStack
                                 style={{
                                     display: "flex",
@@ -189,6 +200,39 @@ const User = () => {
                                 </TouchableOpacity>
                             </YStack>
                         </TouchableOpacity>
+                        {user.role == "TRAVEL_OWNER" ?(<TouchableOpacity onPress={toTravelManagement}>
+                            <YStack
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    justifyContent: "space-between",
+                                }}
+                            >
+                                <XStack alignItems="center">
+                                    <MaterialCommunityIcons
+                                        style={{
+                                            padding: 10,
+                                            color: "grey",
+                                        }}
+                                        size={22}
+                                        name="lock"
+                                    />
+                                    <H5 fontWeight={700}>Travel Management</H5>
+                                </XStack>
+                                <TouchableOpacity>
+                                    <MaterialCommunityIcons
+                                        style={{
+                                            padding: 10,
+                                            color: "grey",
+                                        }}
+                                        size={22}
+                                        name="arrow-right"
+                                    />
+                                </TouchableOpacity>
+                            </YStack>
+                        </TouchableOpacity>) : (<></>)  }
+                        
                     </YStack>
 
                     <View
@@ -198,6 +242,9 @@ const User = () => {
                             marginBottom: 15,
                         }}
                     ></View>
+                    <YStack>
+                        
+                    </YStack>
 
                     <YStack>
                         <TouchableOpacity>
