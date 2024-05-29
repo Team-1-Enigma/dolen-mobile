@@ -11,6 +11,8 @@ import { userAction } from "../../app/Features/auth/UserSlice";
 import { fetchTravels } from "../../app/Features/travel/TravelSlice";
 // import { useNavigation } from "@react-navigation/native";
 import { Image } from "react-native";
+import tripSlice from "../../app/Features/trip/TripSlice";
+import { getAllTripAction } from "../../app/Features/trip/TripSlice";
 
 const Home = () => {
     const navigation = useNavigation()
@@ -18,10 +20,12 @@ const Home = () => {
     const dispatch = useDispatch();
     const { user, status, error } = useSelector((state) => state.user);
     const travels = useSelector((state) => state.travel.travels);
+    const trips = useSelector((state) => state.trip.trips);
 
     useEffect(() => {
         dispatch(userAction());
-        dispatch(fetchTravels())
+        dispatch(fetchTravels());
+        dispatch(getAllTripAction())
       }, [dispatch]);
 
 
@@ -32,7 +36,7 @@ const Home = () => {
         navigation.navigate("Trip")
     }
 
-    const TripList = () => {
+    const TripList = ({item}) => {
         return (
             <XStack gap={10}>
                 <YStack
@@ -46,7 +50,7 @@ const Home = () => {
                             width: 300,
                             borderRadius: 10,
                         }}
-                        source={images.balaikambang}
+                        source={{uri : item.imageTripResponseList[0].imageUrl}}
                     />
                     <XStack
                         flexDirection="column"
@@ -56,7 +60,7 @@ const Home = () => {
                         paddingVertical={10}
                     >
                         <H4 fontWeight={700} color={"black"}>
-                            Balaikambang Beach
+                            {item.destination}
                         </H4>
                         <View
                             style={{
@@ -73,61 +77,19 @@ const Home = () => {
                                 name="map-marker"
                             />
                             <Text style={{ color: "black", fontWeight: 700 }}>
-                                Bantur, Kabupaten Malang, Jawa Timur
+                                {item.locationDTO.city} , {item.locationDTO.province}
                             </Text>
                         </View>
                     </XStack>
                 </YStack>
 
-                <YStack
-                    backgroundColor={"white"}
-                    padding={10}
-                    borderRadius={10}
-                >
-                    <Image
-                        style={{
-                            height: 200,
-                            width: 300,
-                            borderRadius: 10,
-                        }}
-                        source={images.bromo1}
-                    />
-                    <XStack
-                        flexDirection="column"
-                        gap={5}
-                        width={300}
-                        paddingHorizontal={5}
-                        paddingVertical={10}
-                    >
-                        <H4 fontWeight={700} color={"black"}>
-                            Bromo Tengger Semeru
-                        </H4>
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                marginTop: 4,
-                            }}
-                        >
-                            <MaterialCommunityIcons
-                                style={{
-                                    color: "red",
-                                    marginLeft: -4,
-                                }}
-                                size={17}
-                                name="map-marker"
-                            />
-                            <Text style={{ color: "black", fontWeight: 700 }}>
-                                Lawang, Malang, Jawa Timur
-                            </Text>
-                        </View>
-                    </XStack>
-                </YStack>
+                
             </XStack>
         );
     };
 
     const TravelList = ({item}) => {
-        console.log(item.imageTravelResponseList[1].imageUrl)
+        
         return (
             <XStack gap={10}>
                 <YStack backgroundColor={"white"} padding={5} margin={10} borderRadius={10}>
@@ -138,7 +100,7 @@ const Home = () => {
                             borderRadius: 10,
                             aspectRatio:1
                        }}
-                       source={{ uri: item.imageTravelResponseList[0].imageUrl }}
+                       source={{uri:item.imageTravelResponseList[0].imageUrl}}
                     />
                     <XStack
                         flexDirection="column"
@@ -338,7 +300,8 @@ const Home = () => {
                     <View style={{ paddingVertical: 10, gap: 10 }}>
                         <H4 marginLeft={5}>Most Popular Destination</H4>
                         <FlatList
-                            data={[{}]}
+                            data={trips}
+                            keyExtractor={item => item.id}
                             renderItem={TripList}
                             horizontal
                         />

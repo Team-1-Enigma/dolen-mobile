@@ -4,8 +4,15 @@ export const TravelService = () =>{
 
     const getTravels = async() =>{
         const response = await axiosInstance.get("/travels")
+        console.log(`dataasss ${response}`)
           return response.data.data;
     }
 
-    return {getTravels};
+    const getTravelById = async(travelId) =>{
+        const response = await axiosInstance.get(`/travels/${travelId}`);
+
+        return response.data.data;
+    }
+
+    return {getTravels, getTravelById};
 }

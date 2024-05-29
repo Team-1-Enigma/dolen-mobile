@@ -5,12 +5,11 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import images from "../../../../assets/images";
 import { useNavigation } from "@react-navigation/native";
 
-const TripList = () => {
+const TripList = ({item}) => {
     const navigation = useNavigation()
     const toDetail = () => {
-        navigation.navigate("TripDetails")
+        navigation.navigate("TripDetails", {tripId : item.id})
     }
-
     return (
         <>
             <YStack
@@ -26,7 +25,7 @@ const TripList = () => {
                         width: 345,
                         borderRadius: 10,
                     }}
-                    source={images.balaikambang}
+                    source={item.imageTripResponseList[0].imageUrl}
                 />
                 <XStack
                     flexDirection="column"
@@ -36,13 +35,21 @@ const TripList = () => {
                     paddingVertical={10}
                 >
                     <H4 fontWeight={700} color={"black"}>
-                        Balaikambang Beach
+                        {item.destination}
                     </H4>
-                    <Text style={{ lineHeight: 20, color: "gray" }}>
+                    <XStack justifyContent="space-between" alignItems="center">
+                        <H5 fontWeight={700} color={"black"}>
+                            Rp. {item.tripPriceDiscountResponse.priceBefore}
+                        </H5>
+                        <Text style={{ color: "grey" }}>
+                            {item.departureDate}
+                        </Text>
+                    </XStack>
+                    {/* <Text style={{ lineHeight: 20, color: "gray" }}>
                         Balekambang Beach in Malang, East Java, is famous for
                         its natural beauty and temple on a rock in the middle of
                         the sea.
-                    </Text>
+                    </Text> */}
                     <View
                         style={{
                             flexDirection: "row",
@@ -58,7 +65,7 @@ const TripList = () => {
                             name="map-marker"
                         />
                         <Text style={{ color: "black", fontWeight: 700 }}>
-                            Bantur, Kabupaten Malang, Jawa Timur
+                            {item.locationDTO.city}, {item.locationDTO.province}
                         </Text>
                     </View>
                 </XStack>

@@ -12,14 +12,23 @@ import images from "../../../assets/images";
 import TripList from "./components/TripList";
 import { useNavigation } from "@react-navigation/native";
 import Header from "../../components/layout/Header";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getAllTripAction } from "../../app/Features/trip/TripSlice";
+import { useSelector } from "react-redux";
 
 const Trip = () => {
+    const dispatch = useDispatch();
+    const navigation = useNavigation()
+    const trips = useSelector((state) => state.trip.trips);
 
-        const navigation = useNavigation()
+    const toHomepage = () => {
+        navigation.navigate("App")
+    }
 
-        const toHomepage = () => {
-            navigation.navigate("App")
-        }
+    useEffect(() =>{
+        dispatch(getAllTripAction())
+    }, [dispatch])
     const TripPage = () => {
         return (
             <>
@@ -199,7 +208,7 @@ const Trip = () => {
                         </XStack>
 
                         <View flexDirection={"row"}>
-                            <H4>Popular Destination</H4>
+                            <H4>Available Open Trips</H4>
                             <View
                                 borderWidth={0.5}
                                 width={190}
@@ -208,10 +217,11 @@ const Trip = () => {
                                 marginLeft={10}
                             ></View>
                         </View>
-
-                        <TripList />
-                        <TripList />
-                        <TripList />
+                        <FlatList
+                            data = {trips}
+                            renderItem={({item}) => <TripList item={item}/>}
+                        />
+                        
                     </YStack>
                 </YStack>
             </>

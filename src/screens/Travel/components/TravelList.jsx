@@ -7,12 +7,22 @@ import { H5, Image, XStack, YStack } from "tamagui";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import images from "../../../../assets/images";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { fetchTravelById } from "../../../app/Features/travel/TravelSlice";
+import { getAllTripByTravelIdAction } from "../../../app/Features/trip/TripSlice";
+import { useEffect } from "react";
 
-const TravelList = () => {
+const TravelList = ({item}) => {
     const navigation = useNavigation()
     const toDetails = () => {
-        navigation.navigate("TravelDetails")
+        navigation.navigate("TravelDetails", {travelId : item.id})
     }
+
+    const dispatch = useDispatch();
+
+    useEffect(() =>{
+        console.log(`ini adalah ${item.id}`)
+    },[dispatch])
 
     return (
         <>
@@ -38,7 +48,7 @@ const TravelList = () => {
                                         borderTopLeftRadius: 10,
                                         borderBottomLeftRadius: 10,
                                     }}
-                                    source={images.bromo}
+                                    source={item.imageTravelResponseList[0].imageUrl}
                                 />
                                 <XStack
                                     flexDirection="column"
@@ -48,7 +58,7 @@ const TravelList = () => {
                                     paddingHorizontal={5}
                                 >
                                     <H5 fontWeight={700} color={"white"}>
-                                        My Favorit Travel
+                                        {item.name}
                                     </H5>
                                     <Text
                                         style={{
@@ -72,7 +82,7 @@ const TravelList = () => {
                                             name="map-marker"
                                         />
                                         <Text style={{ color: "white" }}>
-                                            Malang
+                                            {item.address}
                                         </Text>
                                     </View>
                                 </XStack>

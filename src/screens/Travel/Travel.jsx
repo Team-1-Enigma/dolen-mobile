@@ -11,12 +11,16 @@ import images from "../../../assets/images";
 import { useNavigation } from "@react-navigation/native";
 import TravelList from "./components/TravelList";
 import Header from "../../components/layout/Header";
+import { useSelector } from "react-redux";
 
 const Travel = () => {
     const navigation = useNavigation();
     const toHomepage = () => {
         navigation.navigate("App");
     };
+
+    const travels = useSelector((state) => state.travel.travels);
+
     const TravelPage = () => {
         return (
             <>
@@ -130,11 +134,7 @@ const Travel = () => {
                     <YStack marginVertical={20}>
                         <H4>Recommended</H4>
                         <View style={{ borderWidth: 1, borderColor: "lightgray", marginVertical: 5 }}></View>
-                        <TravelList />
-                        <TravelList />
-                        <TravelList />
-                        <TravelList />
-                        <TravelList />
+                        <FlatList data={travels} renderItem={({item} ) => <TravelList item={item}/>} />
                     </YStack>
                 </YStack>
             </>
