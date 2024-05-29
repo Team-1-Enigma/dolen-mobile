@@ -25,6 +25,7 @@ import Order from "../screens/Order/Order"
 import OrderConfirmation from "../screens/Order/OrderConfirmation";
 import OrdersList from "../screens/Order/MyOrder";
 import TravelManagementPage from "../screens/Travel/TravelManagement";
+import CreateTravel from "../screens/Travel/CreateTravel";
 
 const Stack = createNativeStackNavigator();
 const Tabs = AnimatedTabBarNavigator();
@@ -118,6 +119,7 @@ const Router = () => {
         <Stack.Screen name="Travel" component={Travel} />
         <Stack.Screen name="TravelDetails" component={TravelDetails} />
         <Stack.Screen name="TravelReview" component={TravelReview} />
+        <Stack.Screen name="CreateTravel" component={CreateTravel} />
         <Stack.Screen name="Trip" component={Trip} />
         <Stack.Screen name="TripDetails" component={TripDetails} />
         <Stack.Screen name="CreateTrip" component={CreateTrip} />
