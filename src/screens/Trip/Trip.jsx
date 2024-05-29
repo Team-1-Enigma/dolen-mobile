@@ -11,16 +11,23 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import images from "../../../assets/images";
 import TripList from "./components/TripList";
 import { useNavigation } from "@react-navigation/native";
-import Header from "../../components/layout/Header";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getAllTripAction } from "../../app/Features/trip/TripSlice";
 import { useSelector } from "react-redux";
 
 const Trip = () => {
-    const dispatch = useDispatch();
     const navigation = useNavigation()
+    const dispatch = useDispatch();
     const trips = useSelector((state) => state.trip.trips);
+
+    const backToHome = () => {
+        navigation.navigate("App")
+    }
+
+    const createTrip = () => {
+        navigation.navigate("CreateTrip")
+    }
 
     const toHomepage = () => {
         navigation.navigate("App")
@@ -64,7 +71,7 @@ const Trip = () => {
                     /> */}
 
                         <TouchableOpacity>
-                            <Button backgroundColor={"#07C9F0"} color={"white"}>
+                            <Button backgroundColor={"#07C9F0"} color={"white"} onPress={createTrip}>
                                 <MaterialCommunityIcons
                                     style={{
                                         color: "white",
