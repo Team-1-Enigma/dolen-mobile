@@ -15,6 +15,7 @@ import Welcome from "../screens/Welcome";
 import Travel from "../screens/Travel/Travel";
 import TravelDetails from "../screens/Travel/TravelDetails";
 import TravelReview from "../screens/Travel/components/TravelReview";
+import CreateTravel from "../screens/Travel/CreateTravel";
 
 const Stack = createNativeStackNavigator(); 
 const Tabs = AnimatedTabBarNavigator();
@@ -67,7 +68,7 @@ const Router = () => {
                 screenOptions={{
                     headerShown: false,
                 }}
-                initialRouteName="Travel"
+                initialRouteName="CreateTravel"
             >
                 <Stack.Screen name="App" component={BottomTab} />
                 {/* Auth */}
@@ -81,6 +82,7 @@ const Router = () => {
                 <Stack.Screen name="Travel" component={Travel} />
                 <Stack.Screen name="TravelDetails" component={TravelDetails} />
                 <Stack.Screen name="TravelReview" component={TravelReview} />
+                <Stack.Screen name="CreateTravel" component={CreateTravel} />
             </Stack.Navigator>
         </NavigationContainer>
     );
