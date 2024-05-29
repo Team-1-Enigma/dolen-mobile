@@ -17,6 +17,11 @@ const Travel = () => {
     const toHomepage = () => {
         navigation.navigate("App");
     };
+
+    const toCreateTravel = () => {
+        navigation.navigate("CreateTravel");
+    };
+
     const TravelPage = () => {
         return (
             <>
@@ -61,8 +66,26 @@ const Travel = () => {
                     </XStack>
 
                     <YStack>
-                        <H3>Travel List</H3>
-                        <H5 color={"gray"}>Choose your favorite travel</H5>
+                        <XStack alignItems="center" justifyContent="space-between">
+                            <View>
+                                <H4>Travel List</H4>
+                                <H6 color={"gray"}>
+                                    Choose your favorite travel
+                                </H6>
+                            </View>
+                            <TouchableOpacity onPress={toCreateTravel}>
+                                <MaterialCommunityIcons
+                                    style={{
+                                        backgroundColor: "#07C9F0",
+                                        padding: 10,
+                                        color: "white",
+                                        borderRadius: 12
+                                    }}
+                                    size={20}
+                                    name="plus"
+                                />
+                            </TouchableOpacity>
+                        </XStack>
                         <YStack
                             width={"100%"}
                             marginTop={10}
