@@ -48,7 +48,7 @@ const TravelList = ({item}) => {
                                         borderTopLeftRadius: 10,
                                         borderBottomLeftRadius: 10,
                                     }}
-                                    source={item.imageTravelResponseList[0].imageUrl}
+                                    source={{uri:item.imageTravelResponseList[0].imageUrl}}
                                 />
                                 <XStack
                                     flexDirection="column"

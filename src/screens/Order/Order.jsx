@@ -40,7 +40,7 @@ const Order = () => {
         const userId = await AsyncStorage.getItem("userId")
         const orderData = {
             quantity: count,
-            tripId: "0c73d1e7-f314-4ada-b0fc-3705bae8486f", 
+            tripId: tripDetail.id, 
             userId: userId, 
             orderDetailRequests: participants.map((p) => ({
                 participantName: p.name,

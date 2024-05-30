@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userAction } from "../../app/Features/auth/UserSlice";
 import { useState } from "react";
 import { getTravelDataByUserIdAction } from "../../app/Features/travel/TravelSlice";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const User = () => {
     const navigation = useNavigation();
@@ -27,8 +28,8 @@ const User = () => {
 
     useEffect(() => {
         dispatch(userAction());
-        dispatch(getTravelDataByUserIdAction(user.userCredential))
-
+        dispatch(getTravelDataByUserIdAction(user.credentialId))
+        
       }, [dispatch]);
 
     const toHomepage = () => {
@@ -39,7 +40,7 @@ const User = () => {
     };
 
     const toOrderList = () =>{
-        navigation.navigate("MyOrderList")
+        navigation.navigate("MyOrderList", {userId : user.id})
     }
 
     const toTravelManagement = () =>{
@@ -279,7 +280,12 @@ const User = () => {
                                 </TouchableOpacity>
                             </YStack>
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={async() =>{
+                                await AsyncStorage.clear();
+                                navigation.navigate("login")
+                            }}
+                        >
                             <YStack
                                 style={{
                                     display: "flex",

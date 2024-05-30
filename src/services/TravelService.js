@@ -15,10 +15,16 @@ export const TravelService = () =>{
     }
 
     const getTravelDataByUserId = async(userId) =>{
-        const response = await axiosInstance.get(`travels/user/${userId}`)
+        const response = await axiosInstance.get(`/travels/user/${userId}`)
 
         return response.data.data;
     }
 
-    return {getTravels, getTravelById, getTravelDataByUserId};
+    const createTravel = async(payload)=>{
+        console.log(`ini d service ${JSON.stringify(payload)}`)
+        const response = await axiosInstance.post("travels", payload)
+        return response.data.data
+    }
+
+    return {getTravels, getTravelById, getTravelDataByUserId, createTravel};
 }

@@ -128,13 +128,15 @@ const CreateTrip = () => {
         ]);
     };
 
-    const onSave = () => {
+    const onSubmit = (data) => {
+        console.log("dddd")
         const formData = {
             departureDate: formattedDepartureDate,
             returnDate: formattedReturnDate,
+            itineraryDTOList : itineraries
             // Tambahkan nilai inputan lainnya di sini sesuai kebutuhan
         };
-        console.log("Form Data: ", formData);
+        console.log("Form Data: ", data)
     };
 
     const toggleItenary = () => {
@@ -485,7 +487,7 @@ const CreateTrip = () => {
                                             size={16}
                                             placeholder={`City`}
                                             onBlur={onBlur}
-                                            onChangeText={onChange}
+                                            onChangeText={(value) => onChange(value)}
                                             value={value}
                                             style={{
                                                 position: "relative",
@@ -699,7 +701,6 @@ const CreateTrip = () => {
                             color={"white"}
                             marginTop={20}
                             fontWeight={800}
-                            onPress={toggleItenary}
                         >
                             Next
                         </Button>
@@ -833,7 +834,7 @@ const CreateTrip = () => {
                                                 Add more action
                                             </Button>
 
-                                            <Button
+                                            {/* <Button
                                                 backgroundColor={"#07C9F0"}
                                                 color="white"
                                                 style={{
@@ -842,7 +843,7 @@ const CreateTrip = () => {
                                                 }}
                                             >
                                                 Save
-                                            </Button>
+                                            </Button> */}
                                         </View>
                                     </YStack>
                                 ))}
@@ -861,10 +862,11 @@ const CreateTrip = () => {
                                         Add more day
                                     </Button>
                                     <Button
-                                        onPress={handleSubmit(onSave)}
+                                        onPress={handleSubmit(onSubmit)}
                                         backgroundColor={"#07C9F0"}
                                         color="white"
                                         style={{ marginTop: 20, width: "45%" }}
+                                    
                                     >
                                         Save
                                     </Button>

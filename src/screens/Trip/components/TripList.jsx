@@ -10,6 +10,8 @@ const TripList = ({item}) => {
     const toDetail = () => {
         navigation.navigate("TripDetails", {tripId : item.id})
     }
+
+    console.log(`ini gambar ${item.imageTripResponseList[0].imageUrl}`)
     return (
         <>
             <YStack
@@ -25,7 +27,7 @@ const TripList = ({item}) => {
                         width: 345,
                         borderRadius: 10,
                     }}
-                    source={item.imageTripResponseList[0].imageUrl}
+                    source={{uri :item.imageTripResponseList[0].imageUrl}}
                 />
                 <XStack
                     flexDirection="column"

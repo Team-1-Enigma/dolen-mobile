@@ -2,14 +2,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { TravelService } from "../../../services/TravelService";
 
-const {getTravels, getTravelById, getTravelDataByUserId} = TravelService()
+const {getTravels, getTravelById, getTravelDataByUserId, createTravel} = TravelService()
 
 const initialState = {
   travels: [],
   travelDetail: null,
   loading: false,
   error: null,
-  travelDetailFromUser : null
+  travelDetailFromUser : null,
+  travel:null
 };
 
 export const fetchTravels = createAsyncThunk(
@@ -25,6 +26,20 @@ export const fetchTravels = createAsyncThunk(
   }
 );
 
+export const createTravelAsync = createAsyncThunk(
+  'travel/createTravel',
+  async (travelData, { rejectWithValue }) => {
+    try {
+      const response = await createTravel(travelData);
+      return response;
+    } catch (error) {
+        console.log( `ini di error ${JSON.stringify(travelData)}`)
+        console.log(error)
+          return rejectWithValue(error.response.data);
+      }
+  }
+);
+
 export const getTravelDataByUserIdAction = createAsyncThunk(
   "travel/user/data",
   async (userId) => {
@@ -32,7 +47,7 @@ export const getTravelDataByUserIdAction = createAsyncThunk(
       const response = await getTravelDataByUserId(userId);
       return response;
     } catch (error) {
-        console.log(`Type erro ${error}`)
+        console.log(`Type errosdas ${error}`)
       throw new Error("Failed to fetch travels");
     }
   }
@@ -93,7 +108,18 @@ const travelSlice = createSlice({
       .addCase(getTravelDataByUserIdAction.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
-      });
+      }).addCase(createTravelAsync.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+    })
+    .addCase(createTravelAsync.fulfilled, (state, action) => {
+        state.loading = false;
+        state.travel = action.payload;
+    })
+    .addCase(createTravelAsync.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+    });;
   },
 });
 

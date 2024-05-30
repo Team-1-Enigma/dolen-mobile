@@ -6,38 +6,45 @@ import { XStack, YStack } from 'tamagui';
 import { Icon } from 'react-native-elements';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { getActiveOrderAction } from '../../app/Features/order/orderSlice';
-
-const OrderListItem = ({ tripName, departureDate, returnDate, status, tripDetail }) => (
-  <Card style={styles.card} backgroundColor={'white'} elevate="10" padding={10}>
-    <YStack>
-      <XStack style={{ alignItems: 'center' }} flex={2}>
-        <MaterialCommunityIcons
-          style={styles.icon}
-          size={30}
-          name="bag-checked"
-        />
-        <H5 style={styles.title}>
-          {tripName}
-        </H5>
-      </XStack>
-      <XStack flex={1} style={styles.details}>
-        <Text>{departureDate}</Text>
-        <Icon name="chevron-right" type="font-awesome" size={16} color="#000" />
-        <Text>{returnDate}</Text>
-      </XStack>
-      <Text style={{ marginTop: 10, color: status === 'PAID' ? 'green' : 'green' }}>
-        Active
-      </Text>
-    </YStack>
-  </Card>
-);
+import { getActiveOrderAction, payoutAction } from '../../app/Features/order/orderSlice';
+import { useRoute } from '@react-navigation/native';
 
 const OrdersList = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const route = useRoute();
   const { activeOrder, loading, error } = useSelector(state => state.order);
-  const userId = 'b69134a3-bcb7-420c-a62f-77993cd01388'; // userId ini bisa didapatkan dari state atau props
+  const { userId } = route.params;
+
+  const OrderListItem = ({ tripName, departureDate, returnDate, status, tripDetail, orderId }) => (
+    <Card style={styles.card} backgroundColor={'white'} elevate="10" padding={10}>
+      <YStack>
+        <XStack style={{ alignItems: 'center' }} flex={2}>
+          <MaterialCommunityIcons
+            style={styles.icon}
+            size={30}
+            name="bag-checked"
+          />
+          <H5 style={styles.title}>
+            {tripName}
+          </H5>
+        </XStack>
+        <XStack flex={1} style={styles.details}>
+          <Text>{departureDate}</Text>
+          <Icon name="chevron-right" type="font-awesome" size={16} color="#000" />
+          <Text>{returnDate}</Text>
+        </XStack>
+        <XStack style={{ justifyContent: 'space-around', marginTop: '10%' }}>
+          <Text style={{ marginTop: 10, color: status === 'PAID' ? 'green' : 'green' }}>
+            Active
+          </Text>
+          <Button themeInverse size="$3" onPress={() => { dispatch(payoutAction(orderId)); navigation.navigate("App") }}>
+            Payout
+          </Button>
+        </XStack>
+      </YStack>
+    </Card>
+  );
 
   useEffect(() => {
     dispatch(getActiveOrderAction(userId));
@@ -63,6 +70,7 @@ const OrdersList = () => {
       </View>
     );
   }
+
   return (
     <View style={{ marginTop: 20 }}>
       <Button onPress={() => navigation.goBack()}>
@@ -77,7 +85,8 @@ const OrdersList = () => {
             departureDate={item.trip.departureDate}
             returnDate={item.trip.returnDate}
             status={item.status}
-            trip = {item}
+            tripDetail={item.trip}
+            orderId={item.id}
           />
         )}
       />
@@ -91,7 +100,7 @@ const styles = StyleSheet.create({
     margin: 10,
     borderWidth: 1,
     borderColor: '#ddd',
-    elevation: 2, // <-- untuk bayangan (shadow)
+    elevation: 2,
   },
   icon: {
     padding: 10,

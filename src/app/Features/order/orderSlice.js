@@ -3,7 +3,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { OrderService } from "../../../services/OrderService";
 
-const { createOrder, getPaymentData, checkPaymentStatus, getActiveOrder } = OrderService();
+const { createOrder, getPaymentData, checkPaymentStatus, getActiveOrder, payout } = OrderService();
 
 const initialState = {
     participantData: [],
@@ -66,6 +66,20 @@ export const getActiveOrderAction = createAsyncThunk(
         } catch (error) {
             console.log(`Type error ${error}`);
             throw new Error("Failed to fetch payment data");
+        }
+    }
+)
+
+export const payoutAction = createAsyncThunk(
+    "order/payout",
+    async(orderId) =>{
+        console.log("payout")
+        try{
+            const response =await payout(orderId);
+            return response;
+        }catch(error){
+            console.log(`Type error ${error}`);
+            throw new Error("Payout Failed");
         }
     }
 )
@@ -135,6 +149,18 @@ const orderSlice = createSlice({
                 state.error = null;
             })
             .addCase(getActiveOrderAction.rejected, (state) => {
+                state.loading = false;
+                state.error = "Failed to get payment data";
+            })
+            .addCase(payoutAction.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(payoutAction.fulfilled, (state, action) => {
+                state.loading = false;
+                state.activeOrder = state.activeOrder.filter(order => order.id !== action.meta.arg);
+                state.error = null;
+            })
+            .addCase(payoutAction.rejected, (state) => {
                 state.loading = false;
                 state.error = "Failed to get payment data";
             });

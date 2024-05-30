@@ -22,5 +22,11 @@ export const TripService = () =>{
         return response.data.data
     }
 
-    return {getAllTrip, getAllTripByTravelId, getTripPrice, getTripDetail};
+    const getAllParticipantByTripId = async(tripId) => {
+        const response = await axiosInstance.get(`order/participant/${tripId}`)
+
+        return response.data.data;
+    }
+
+    return {getAllTrip, getAllTripByTravelId, getTripPrice, getTripDetail, getAllParticipantByTripId};
 }

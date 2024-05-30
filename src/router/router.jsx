@@ -26,6 +26,7 @@ import OrderConfirmation from "../screens/Order/OrderConfirmation";
 import OrdersList from "../screens/Order/MyOrder";
 import TravelManagementPage from "../screens/Travel/TravelManagement";
 import CreateTravel from "../screens/Travel/CreateTravel";
+import TravelManagementDetail from "../screens/Travel/TravelManagementDetail";
 
 const Stack = createNativeStackNavigator();
 const Tabs = AnimatedTabBarNavigator();
@@ -127,6 +128,7 @@ const Router = () => {
         <Stack.Screen name="OrderConfirmation" component={OrderConfirmation}/>
         <Stack.Screen name="MyOrderList" component={OrdersList}/>
         <Stack.Screen name="TravelManagement" component={TravelManagementPage}/>
+        <Stack.Screen name="TravelManagementDetail" component={TravelManagementDetail}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

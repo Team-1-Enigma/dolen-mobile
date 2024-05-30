@@ -21,5 +21,10 @@ export const OrderService = () =>{
         const response = await axiosInstance.get(`order/${userId}/ACTIVE`)
         return response.data.data
     }
-    return {createOrder, getPaymentData, checkPaymentStatus, getActiveOrder}
+
+    const payout = async(orderId) =>{
+        const response = await axiosInstance.post(`order/payout/${orderId}`)
+        return response.data.data;
+    }
+    return {createOrder, getPaymentData, checkPaymentStatus, getActiveOrder, payout}
 }

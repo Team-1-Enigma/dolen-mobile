@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import { TripService } from '../../../services/TripService';
 
-const {getAllTrip, getAllTripByTravelId, getTripPrice, getTripDetail} = TripService()
+const {getAllTrip, getAllTripByTravelId, getTripPrice, getTripDetail, getAllParticipantByTripId} = TripService()
 
 const initialState = {
     trips :[],
@@ -10,7 +10,8 @@ const initialState = {
     loading:false,
     error:null,
     tripPrice:[],
-    tripDetail:null
+    tripDetail:null,
+    participant:[]
 }
 
 export const getAllTripAction = createAsyncThunk(
@@ -59,6 +60,18 @@ export const getTripDetailAction = createAsyncThunk(
       throw new Error("Failed to fetch trip detail");
     }
   }
+)
+
+export const getAllParticipantActioon = createAsyncThunk(
+  "trip/participant",
+  async(tripId) =>{
+    try{
+      const response = await getAllParticipantByTripId(tripId);
+      return response;
+    } catch(e){
+      throw new Error("Failed to fetch All  Participant");
+    }
+  } 
 )
 
 const tripSlice = createSlice({
@@ -112,6 +125,18 @@ const tripSlice = createSlice({
           state.tripDetail = action.payload;
         })
         .addCase(getTripDetailAction.rejected, (state, action) => {
+          state.loading = false;
+          state.error = action.error.message;
+        })
+        .addCase(getAllParticipantActioon.pending, (state) => {
+          state.loading = true;
+          state.error = null;
+        })
+        .addCase(getAllParticipantActioon.fulfilled, (state, action) => {
+          state.loading = false;
+          state.participant = action.payload;
+        })
+        .addCase(getAllParticipantActioon.rejected, (state, action) => {
           state.loading = false;
           state.error = action.error.message;
         });
